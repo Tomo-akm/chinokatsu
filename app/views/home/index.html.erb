@@ -1,61 +1,60 @@
-<div class="container-fluid bg-primary text-white py-5">
-  <div class="container">
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-8">
-        <h1 class="display-4 fw-bold mb-3">Chinokatsu</h1>
-        <p class="lead mb-4">琉球大学生向けの就活SNS</p>
-        <p class="fs-5">他の学生の就活進捗を確認し、自分の進捗を共有できるプラットフォーム</p>
+<div class="row justify-content-center">
+  <div class="col-lg-10">
+    <div class="card bg-white shadow-lg">
+      <div class="card-body p-5">
+        <!-- ヒーローセクション -->
+        <div class="text-center mb-5">
+          <h1 class="display-4 fw-bold mb-3 text-black">Chinokatsu</h1>
+          <p class="lead mb-4 text-black">琉球大学生向けの就活SNS</p>
+          <p class="fs-5 mb-4 text-black">他の学生の就活進捗を確認し、自分の進捗を共有できるプラットフォーム</p>
+          <%= link_to "投稿を見る！", posts_path, class: "btn btn-primary btn-lg px-4 py-2 fw-bold" %>
+        </div>
+
+          <!-- 特徴セクション -->
+          <div class="text-center mb-5">
+            <h2 class="h3 mb-3 text-black">Chinokatsuの特徴</h2>
+            <p class="text-black">琉球大学生の就活をサポートする3つの機能</p>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <div class="card-body text-center p-4">
+                  <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-people-fill text-primary fs-4"></i>
+                  </div>
+                  <h5 class="card-title text-black">他の学生の進捗確認</h5>
+                  <p class="card-text text-black">同じ琉球大学の学生がどのような就活を進めているかを確認できます。エントリー状況や選考結果を参考にできます。</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <div class="card-body text-center p-4">
+                  <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-chat-square-text-fill text-success fs-4"></i>
+                  </div>
+                  <h5 class="card-title text-black">自分の進捗投稿</h5>
+                  <p class="card-text text-black">自分の就活状況を投稿して、同じ大学の仲間と情報を共有。励ましあいながら就活を進められます。</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm">
+                <div class="card-body text-center p-4">
+                  <div class="bg-info bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-info-circle-fill text-info fs-4"></i>
+                  </div>
+                  <h5 class="card-title text-black">琉大生限定就活情報</h5>
+                  <p class="card-text text-black">琉球大学生に特化した就活情報を提供。地元企業の情報や先輩の体験談など、ここでしか得られない情報が満載。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-10">
-      <div class="text-center mb-5">
-        <h2 class="h3 mb-3">Chinokatsuの特徴</h2>
-        <p class="text-muted">琉球大学生の就活をサポートする3つの機能</p>
-      </div>
-      
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center p-4">
-              <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                <i class="bi bi-people-fill text-primary fs-4"></i>
-              </div>
-              <h5 class="card-title">他の学生の進捗確認</h5>
-              <p class="card-text text-muted">同じ琉球大学の学生がどのような就活を進めているかを確認できます。エントリー状況や選考結果を参考にできます。</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center p-4">
-              <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                <i class="bi bi-chat-square-text-fill text-success fs-4"></i>
-              </div>
-              <h5 class="card-title">自分の進捗投稿</h5>
-              <p class="card-text text-muted">自分の就活状況を投稿して、同じ大学の仲間と情報を共有。励ましあいながら就活を進められます。</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center p-4">
-              <div class="bg-info bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                <i class="bi bi-info-circle-fill text-info fs-4"></i>
-              </div>
-              <h5 class="card-title">琉大生限定就活情報</h5>
-              <p class="card-text text-muted">琉球大学生に特化した就活情報を提供。地元企業の情報や先輩の体験談など、ここでしか得られない情報が満載。</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-

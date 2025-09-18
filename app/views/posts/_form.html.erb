@@ -1,0 +1,21 @@
+<%= form_with(model: post) do |form| %>
+  <% if post.errors.any? %>
+    <div class="alert alert-danger">
+      <h5 class="alert-heading">保存に失敗しました（<%= post.errors.count %>件）</h5>
+      <ul class="mb-0">
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :content, "内容", class: "form-label" %>
+    <%= form.text_area :content, class: "form-control", rows: 5, placeholder: "今の気持ちやメモを書いてください" %>
+  </div>
+
+  <div class="text-center">
+    <%= form.submit(post.new_record? ? "作成する" : "更新する", class: "btn btn-primary") %>
+  </div>
+<% end %>
