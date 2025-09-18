@@ -6,8 +6,24 @@ ja:
         password: "パスワード"
         password_confirmation: "パスワード確認"
         current_password: "現在のパスワード"
+        name: "名前"
+      post:
+        content: "内容"
+        user: "ユーザー"
     models:
       user: "ユーザー"
+      post: "投稿"
+    errors:
+      models:
+        post:
+          attributes:
+            user:
+              required: "が必要です"
+            content:
+              blank: "を入力してください"
+      messages:
+        required: "が必要です"
+        blank: "を入力してください"
   
   helpers:
     submit:
