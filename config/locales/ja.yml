@@ -12,7 +12,7 @@ ja:
         user: "ユーザー"
     models:
       user: "ユーザー"
-      post: "投稿"
+      post: "commit"
     errors:
       models:
         post:

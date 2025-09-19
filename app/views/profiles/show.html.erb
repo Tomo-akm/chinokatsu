@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <!-- User Profile Information -->
+      <div class="card shadow-sm bg-white text-dark mb-4">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="h4 mb-0">
+              <i class="bi bi-person-circle me-2"></i>プロフィール
+            </h2>
+            <% if @user == current_user %>
+              <%= link_to "プロフィール編集", edit_profile_path, class: "btn btn-sm btn-outline-primary" %>
+            <% end %>
+          </div>
+          <hr class="my-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <p class="mb-0 text-muted">名前</p>
+            </div>
+            <div class="col-sm-8">
+              <p class="text-dark mb-2"><%= @user.name %></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <p class="mb-0 text-muted">好きな言語</p>
+            </div>
+            <div class="col-sm-8">
+              <p class="text-dark mb-2"><%= @user.favorite_language.present? ? @user.favorite_language : "ー" %></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <p class="mb-0 text-muted">希望・所属研究室</p>
+            </div>
+            <div class="col-sm-8">
+              <p class="text-dark mb-2"><%= @user.research_lab.present? ? @user.research_lab : "ー" %></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <p class="mb-0 text-muted">インターン・説明会参加回数</p>
+            </div>
+            <div class="col-sm-8">
+              <p class="text-dark mb-2"><%= @user.internship_count.present? ? "#{@user.internship_count}回" : "ー" %></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <p class="mb-0 text-muted">一言</p>
+            </div>
+            <div class="col-sm-8">
+              <% if @user.personal_message.present? %>
+                <div class="text-dark mb-2"><%= simple_format(h(@user.personal_message), {}, wrapper_tag: "span") %></div>
+              <% else %>
+                <p class="text-dark mb-2">ー</p>
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <p class="mb-0 text-muted">登録日</p>
+            </div>
+            <div class="col-sm-8">
+              <p class="text-dark mb-0"><%= @user.created_at.strftime("%Y年%m月%d日") %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- User's Posts -->
+      <div class="card shadow-sm bg-white text-dark">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h3 class="h5 mb-0">
+              <i class="bi bi-journal-text me-2"></i>commit log (<%= @posts.count %>件)
+            </h3>
+          </div>
+          <hr class="my-3">
+
+          <% if @posts.any? %>
+            <% @posts.each do |post| %>
+              <div class="border rounded p-3 mb-3 bg-light">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <span class="text-muted small">
+                    <i class="bi bi-clock me-1"></i>
+                    <%= post.created_at.strftime("%Y/%m/%d %H:%M") %>
+                  </span>
+                  <div class="d-flex gap-1">
+                    <%= link_to "commit詳細", post_path(post), class: "btn btn-sm btn-outline-primary" %>
+                    <% if user_signed_in? && post.user == current_user %>
+                      <%= link_to "rebase", edit_post_path(post), class: "btn btn-sm btn-outline-secondary" %>
+                      <%= button_to "revert", post, method: :delete, class: "btn btn-outline-danger btn-sm d-inline", data: { confirm: "本当にrevertしますか？" } %>
+                    <% end %>
+                  </div>
+                </div>
+                <p class="mb-0 lh-base">
+                  <%= truncate(simple_format(h(post.content)), length: 200, escape: false) %>
+                </p>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="text-center py-5 text-muted">
+              <i class="bi bi-journal-x display-4 mb-3"></i>
+              <p class="mb-0">まだ投稿がありません</p>
+              <p class="small">最初の投稿をしてみましょう！</p>
+              <%= link_to "新しい投稿", new_post_path, class: "btn btn-primary mt-2" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

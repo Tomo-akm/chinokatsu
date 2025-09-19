@@ -1,12 +1,14 @@
-<% content_for :title, "投稿一覧" %>
+<% content_for :title, "ちのgit" %>
 
 <div class="container">
   <div class="text-center mb-4">
-    <h1 class="display-4 fw-bold text-primary">投稿一覧</h1>
+    <h1 class="display-4 fw-bold text-primary">ちのgit</h1>
+    <p class="lead text-muted mt-3">毎日コミットして、理想のmain branchに向かおう🚀<br>
+    みんなの就活進捗をcommit logで確認しよう！</p>
   </div>
 
   <div class="text-center mb-4">
-    <%= link_to "新規投稿", new_post_path, class: "btn btn-primary" %>
+    <%= link_to "new commit", new_post_path, class: "btn btn-primary" %>
   </div>
 
   <div class="d-flex flex-column gap-3" id="posts">

@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   resources :posts
   get 'home/index'
+  get 'profile', to: 'profiles#show'
+  get 'profile/edit', to: 'profiles#edit', as: 'edit_profile'
+  patch 'profile', to: 'profiles#update'
+  get 'users/:id/profile', to: 'profiles#show', as: 'user_profile'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

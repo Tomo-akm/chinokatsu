@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm bg-white text-dark">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="h4 mb-0">
+              <i class="bi bi-pencil-square me-2"></i>プロフィール編集
+            </h2>
+          </div>
+          <hr class="my-3">
+          
+          <%= form_with(model: @user, url: profile_path, method: :patch, local: true) do |form| %>
+            <% if @user.errors.any? %>
+              <div class="alert alert-danger">
+                <h4><%= pluralize(@user.errors.count, "個のエラー") %>があります:</h4>
+                <ul class="mb-0">
+                  <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :favorite_language, "好きな言語", class: "form-label" %>
+              <%= form.text_field :favorite_language, class: "form-control", placeholder: "例: Ruby, Python, JavaScript" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :research_lab, "希望・所属研究室", class: "form-label" %>
+              <%= form.text_field :research_lab, class: "form-control", placeholder: "例: 情報工学研究室" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :internship_count, "インターン・説明会参加回数", class: "form-label" %>
+              <%= form.number_field :internship_count, class: "form-control", min: 0, placeholder: "0" %>
+              <div class="form-text">参加した回数を入力してください</div>
+            </div>
+
+            <div class="mb-4">
+              <%= form.label :personal_message, "一言", class: "form-label" %>
+              <%= form.text_area :personal_message, class: "form-control", rows: 4, placeholder: "自己紹介や一言メッセージを入力してください" %>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-end">
+              <%= link_to "キャンセル", profile_path, class: "btn btn-secondary" %>
+              <%= form.submit "更新", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

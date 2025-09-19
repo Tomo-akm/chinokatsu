@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Chinokatsu" %></title>
+    <title><%= content_for(:title) || "ちのgit" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -27,14 +27,14 @@
   <body style="background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
-        <%= link_to "Chinokatsu", root_path, class: "navbar-brand fs-3 fw-bold text-white text-decoration-none" %>
+        <%= link_to "ちのgit", root_path, class: "navbar-brand fs-3 fw-bold text-white text-decoration-none" %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto align-items-lg-center">
             <li class="nav-item">
-              <%= link_to "投稿", posts_path, class: "nav-link text-white fw-medium" %>
+              <%= link_to "commit log", posts_path, class: "nav-link text-white fw-medium" %>
             </li>
 
             <% if user_signed_in? %>
@@ -44,6 +44,9 @@
                   <span class="small"><%= current_user&.email %></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <%= link_to "プロフィール", profile_path, class: "dropdown-item" %>
+                  </li>
                   <li>
                     <%= link_to "ユーザー編集", edit_user_registration_path, class: "dropdown-item" %>
                   </li>
