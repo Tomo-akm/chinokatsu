@@ -24,7 +24,6 @@
     <% end %>
     
     <div class="d-flex flex-wrap gap-2 justify-content-end">
-      <%= link_to "commit詳細", post, class: "btn btn-outline-primary btn-sm" %>
       <% if user_signed_in? && post.user == current_user %>
         <%= link_to "rebase", edit_post_path(post), class: "btn btn-outline-secondary btn-sm" %>
         <%= button_to "revert", post, method: :delete, class: "btn btn-outline-danger btn-sm", data: { confirm: "本当にrevertしますか？" } %>

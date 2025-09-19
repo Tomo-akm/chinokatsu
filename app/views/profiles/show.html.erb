@@ -89,16 +89,26 @@
                     <%= post.created_at.strftime("%Y/%m/%d %H:%M") %>
                   </span>
                   <div class="d-flex gap-1">
-                    <%= link_to "commit詳細", post_path(post), class: "btn btn-sm btn-outline-primary" %>
                     <% if user_signed_in? && post.user == current_user %>
                       <%= link_to "rebase", edit_post_path(post), class: "btn btn-sm btn-outline-secondary" %>
                       <%= button_to "revert", post, method: :delete, class: "btn btn-outline-danger btn-sm d-inline", data: { confirm: "本当にrevertしますか？" } %>
                     <% end %>
                   </div>
                 </div>
-                <p class="mb-0 lh-base">
+                <p class="mb-2 lh-base">
                   <%= truncate(simple_format(h(post.content)), length: 200, escape: false) %>
                 </p>
+                
+                <!-- タグ表示 -->
+                <% if post.tags.any? %>
+                  <div class="mt-2">
+                    <% post.tags.each do |tag| %>
+                      <%= link_to tag_path(tag.name), class: "text-decoration-none" do %>
+                        <span class="badge bg-light text-dark me-1">#<%= tag.name %></span>
+                      <% end %>
+                    <% end %>
+                  </div>
+                <% end %>
               </div>
             <% end %>
           <% else %>
