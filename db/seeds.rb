@@ -295,10 +295,13 @@ student_posts_data.each_with_index do |data, index|
 
   users << user
 
-  # 投稿を作成
+  # 投稿を作成（過去6ヶ月に分散）
+  random_date = rand(6.months.ago..Time.current)
   post = Post.create!(
     content: data[:post],
-    user: user
+    user: user,
+    created_at: random_date,
+    updated_at: random_date
   )
 
   # タグを付与
@@ -408,9 +411,13 @@ additional_posts = [
   random_user = users.sample
   random_post = additional_posts.sample
 
+  # ランダムな日付を生成（過去6ヶ月に分散）
+  random_date = rand(6.months.ago..Time.current)
   post = Post.create!(
     content: random_post,
-    user: random_user
+    user: random_user,
+    created_at: random_date,
+    updated_at: random_date
   )
 
   # 追加投稿にもタグを付与

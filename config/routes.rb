@@ -7,6 +7,17 @@ Rails.application.routes.draw do
   get 'profile/edit', to: 'profiles#edit', as: 'edit_profile'
   patch 'profile', to: 'profiles#update'
   get 'users/:id/profile', to: 'profiles#show', as: 'user_profile'
+  
+  
+  # API endpoints for heatmap data
+  namespace :api do
+    namespace :v1 do
+      resources :users do
+        get :posts_activity, on: :member
+      end
+    end
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
