@@ -9,7 +9,20 @@
     <div class="card-text fs-6 mb-3">
       <%= simple_format(h(post.content)) %>
     </div>
+    
     <hr class="my-3">
+    
+    <!-- タグ表示 -->
+    <% if post.tags.any? %>
+      <div class="mb-3">
+        <% post.tags.each do |tag| %>
+          <%= link_to tag_path(tag.name), class: "text-decoration-none" do %>
+            <span class="badge bg-light text-dark me-1">#<%= tag.name %></span>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+    
     <div class="d-flex flex-wrap gap-2 justify-content-end">
       <%= link_to "commit詳細", post, class: "btn btn-outline-primary btn-sm" %>
       <% if user_signed_in? && post.user == current_user %>

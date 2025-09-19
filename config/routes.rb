@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :posts
+  resources :tags, only: [:index, :show]
   get 'home/index'
   get 'profile', to: 'profiles#show'
   get 'profile/edit', to: 'profiles#edit', as: 'edit_profile'

@@ -8,8 +8,10 @@
             <h2 class="h4 mb-0">
               <i class="bi bi-person-circle me-2"></i>プロフィール
             </h2>
-            <% if @user == current_user %>
+            <% if user_signed_in? && @user == current_user %>
               <%= link_to "プロフィール編集", edit_profile_path, class: "btn btn-sm btn-outline-primary" %>
+            <% elsif !user_signed_in? %>
+              <small class="text-muted">編集するには<%= link_to "ログイン", new_user_session_path, class: "text-decoration-none" %>が必要です</small>
             <% end %>
           </div>
           <hr class="my-3">
@@ -104,7 +106,15 @@
               <i class="bi bi-journal-x display-4 mb-3"></i>
               <p class="mb-0">まだ投稿がありません</p>
               <p class="small">最初の投稿をしてみましょう！</p>
-              <%= link_to "新しい投稿", new_post_path, class: "btn btn-primary mt-2" %>
+              <% if user_signed_in? %>
+                <%= link_to "新しい投稿", new_post_path, class: "btn btn-primary mt-2" %>
+              <% else %>
+                <%= link_to "新しい投稿", new_user_session_path, 
+                    class: "btn btn-primary mt-2", 
+                    data: { 
+                      confirm: "投稿するにはログインが必要です。ログインページに移動しますか？"
+                    } %>
+              <% end %>
             </div>
           <% end %>
         </div>

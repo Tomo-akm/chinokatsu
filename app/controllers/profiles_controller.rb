@@ -1,8 +1,9 @@
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
 
   def show
-    @user = params[:id] ? User.find(params[:id]) : current_user
+    @user = params[:id] ? User.find(params[:id]) : (current_user if user_signed_in?)
+    redirect_to new_user_session_path unless @user
     @posts = @user.posts.order(created_at: :desc)
   end
 

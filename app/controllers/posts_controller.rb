@@ -1,11 +1,15 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :check_post_ownership, only: %i[ edit update destroy ]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.order(created_at: :desc).page(params[:page]).per(10)
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(10)
+    
+    # サイドバー用のタグ一覧（投稿数上位10個）
+    @popular_tags = Tag.with_posts.popular.limit(10)
   end
 
   # GET /posts/1 or /posts/1.json
@@ -74,6 +78,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.expect(post: [ :content ])
+      params.expect(post: [ :content, :tag_names ])
     end
 end
