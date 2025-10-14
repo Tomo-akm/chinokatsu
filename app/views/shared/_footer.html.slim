@@ -1,0 +1,19 @@
+footer.bg-dark.text-white.py-4.mt-5
+  .container
+    .row
+      .col-md-6
+        h5.mb-3 ちのgit
+        p.text-light.mb-2 琉球大学工学部知能情報コース生向けの就活version管理SNS
+        p.text-light.small 毎日commitして、みんなで理想のmain branchに向かおう🚀
+      .col-md-6
+        h6.mb-3 ナビゲーション
+        ul.list-unstyled
+          li.mb-2
+            = link_to "ホーム・コンセプト", home_index_path, class: "text-light text-decoration-none"
+          li.mb-2
+            = link_to "ちのgit", posts_path, class: "text-light text-decoration-none"
+    hr.my-4.border-secondary
+    .row
+      .col-12.text-center
+        p.text-light.small.mb-0
+          | &copy; #{Date.current.year} ちのgit. All rights reserved.

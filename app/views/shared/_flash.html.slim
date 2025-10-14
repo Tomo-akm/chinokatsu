@@ -1,0 +1,23 @@
+ruby:
+  flash_types = [
+          { key: :notice,  color: 'primary', icon: 'info-circle' },
+          { key: :success, color: 'success', icon: 'check-circle' },
+          { key: :alert,   color: 'warning', icon: 'exclamation-triangle' },
+          { key: :error,   color: 'danger',  icon: 'x-square' },
+  ].freeze
+
+  p_flash_type = defined?(l_flash_type) ? l_flash_type : nil
+  p_flash_message = defined?(l_flash_message) ? l_flash_message : nil
+
+- flash_types.each do |type|
+  - message = flash[type[:key]].presence
+  - message ||= p_flash_message if type[:key] == p_flash_type
+  - if message.present?
+    .mb-2.me-3.toast.hide class="border-#{type[:color]}" data-controller="turbo-toast"
+      .toast-header class="text-#{type[:color]}"
+        strong.me-auto
+          i.bi class="bi-#{type[:icon]} me-1"
+          = type[:key].to_s.humanize
+        button.btn-close data-bs-dismiss='toast'
+      .toast-body
+        = message

@@ -1,0 +1,31 @@
+- content_for :title, "タグ一覧"
+
+.container
+  h1.mb-4
+    i.fas.fa-tags
+    |  タグ一覧
+
+  = link_to "← 投稿一覧に戻る", posts_path, class: "btn btn-outline-secondary mb-3"
+
+  / 検索フォーム
+  = search_form_for @q, local: true, class: "mb-4" do |f|
+    .input-group
+      = f.search_field :name_cont, placeholder: "タグ名で検索...", class: "form-control"
+      button.btn.btn-outline-secondary type="submit"
+        i.fas.fa-search
+        |  検索
+
+  .row
+    - @tags.each do |tag|
+      .col-md-6.col-lg-4.mb-3
+        .card.h-100
+          .card-body
+            h5.card-title
+              = link_to tag_path(tag.name), class: "text-decoration-none" do
+                span.badge.bg-primary.fs-6 ##{tag.name}
+            p.card-text.text-muted
+              | #{tag.posts_count}件の投稿
+            = link_to "投稿を見る", posts_path(tag: tag.name), class: "btn btn-sm btn-outline-primary"
+
+  .d-flex.justify-content-center.mt-4
+    = paginate @tags

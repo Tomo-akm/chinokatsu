@@ -1,0 +1,175 @@
+.container
+  .row.justify-content-center
+    .col-lg-8
+      / User Profile Information
+      .card.shadow-sm.bg-white.text-dark.mb-4
+        .card-body.p-4
+          .d-flex.justify-content-between.align-items-center.mb-2
+            h2.h4.mb-0
+              i.bi.bi-person-circle.me-2
+              | プロフィール
+            - if user_signed_in? && @user == current_user
+              = link_to "プロフィール編集", edit_profile_path, class: "btn btn-sm btn-outline-primary"
+            - elsif !user_signed_in?
+              small.text-muted
+                | 編集するには
+                = link_to "ログイン", new_user_session_path, class: "text-decoration-none"
+                | が必要です
+          hr.my-3
+          .row
+            .col-sm-4
+              p.mb-0.text-muted 名前
+            .col-sm-8
+              p.text-dark.mb-2 = @user.name
+          .row
+            .col-sm-4
+              p.mb-0.text-muted 好きな言語
+            .col-sm-8
+              p.text-dark.mb-2 = @user.favorite_language.present? ? @user.favorite_language : "ー"
+          .row
+            .col-sm-4
+              p.mb-0.text-muted 希望・所属研究室
+            .col-sm-8
+              p.text-dark.mb-2 = @user.research_lab.present? ? @user.research_lab : "ー"
+          .row
+            .col-sm-4
+              p.mb-0.text-muted インターン・説明会参加回数
+            .col-sm-8
+              p.text-dark.mb-2 = @user.internship_count.present? ? "#{@user.internship_count}回" : "ー"
+          .row
+            .col-sm-4
+              p.mb-0.text-muted 一言
+            .col-sm-8
+              - if @user.personal_message.present?
+                .text-dark.mb-2 = simple_format(h(@user.personal_message), {}, wrapper_tag: "span")
+              - else
+                p.text-dark.mb-2 ー
+          .row
+            .col-sm-4
+              p.mb-0.text-muted 登録日
+            .col-sm-8
+              p.text-dark.mb-0 = @user.created_at.strftime("%Y年%m月%d日")
+
+      / Activity Heatmap
+      .card.shadow-sm.bg-white.text-dark.mb-4
+        .card-body.p-4
+          .d-flex.justify-content-between.align-items-center.mb-2
+            h3.h5.mb-0
+              i.bi.bi-calendar3.me-2
+              | 投稿活動チャート
+          hr.my-3
+
+          .chart-stats
+            .row.text-center
+              .col-md-4.mb-3
+                .stat-item
+                  span.stat-number = @total_posts
+                  span.stat-label 総投稿数
+              .col-md-4.mb-3
+                .stat-item
+                  span.stat-number = @posts_this_month
+                  span.stat-label 今月の投稿
+              .col-md-4.mb-3
+                .stat-item
+                  span.stat-number = @max_posts_per_day
+                  span.stat-label 1日最大投稿数
+
+          / ヒートマップ表示エリア
+          .heatmap-container.mt-4
+            #heatmap.text-center
+
+            .heatmap-legend.mt-3
+              span.small.text-muted Less
+              .legend-squares.mx-2
+                .legend-square style="background-color: #ebedf0;"
+                .legend-square style="background-color: #9be9a8;"
+                .legend-square style="background-color: #40c463;"
+                .legend-square style="background-color: #30a14e;"
+                .legend-square style="background-color: #216e39;"
+              span.small.text-muted More
+
+      / User's Posts
+      .card.shadow-sm.bg-white.text-dark
+        .card-body.p-4
+          .d-flex.justify-content-between.align-items-center.mb-2
+            h3.h5.mb-0
+              i.bi.bi-journal-text.me-2
+              | commit log (#{@posts.count}件)
+          hr.my-3
+
+          - if @posts.any?
+            - @posts.each do |post|
+              .border.rounded.p-3.mb-3.bg-light
+                .d-flex.justify-content-between.align-items-start.mb-2
+                  span.text-muted.small
+                    i.bi.bi-clock.me-1
+                    = post.created_at.strftime("%Y/%m/%d %H:%M")
+                  .d-flex.gap-1
+                    - if user_signed_in? && post.user == current_user
+                      = link_to "rebase", edit_post_path(post), class: "btn btn-sm btn-outline-secondary"
+                      = button_to "revert", post, method: :delete, class: "btn btn-outline-danger btn-sm d-inline", data: { confirm: "本当にrevertしますか？" }
+                p.mb-2.lh-base
+                  = truncate(simple_format(h(post.content)), length: 200, escape: false)
+
+                / タグ表示
+                - if post.tags.any?
+                  .mt-2
+                    - post.tags.each do |tag|
+                      = link_to tag_path(tag.name), class: "text-decoration-none" do
+                        span.badge.bg-light.text-dark.me-1 ##{tag.name}
+          - else
+            .text-center.py-5.text-muted
+              i.bi.bi-journal-x.display-4.mb-3
+              p.mb-0 まだ投稿がありません
+              p.small 最初の投稿をしてみましょう！
+              - if user_signed_in?
+                = link_to "新しい投稿", new_post_path, class: "btn btn-primary mt-2"
+              - else
+                = link_to "新しい投稿", new_user_session_path, class: "btn btn-primary mt-2", data: { confirm: "投稿するにはログインが必要です。ログインページに移動しますか？" }
+
+/ Cal-Heatmap JavaScript
+javascript:
+  // ヒートマップの初期化（DOMContentLoadedで実行）
+  document.addEventListener('DOMContentLoaded', function() {
+    // 開始日を6ヶ月前に設定
+    var startDate = new Date();
+    startDate.setMonth(startDate.getMonth() - 5);
+
+    // JSONデータのパーサー
+    var parser = function(data) {
+      try {
+        return typeof data === 'string' ? JSON.parse(data) : data;
+      } catch (e) {
+        console.error('Failed to parse heatmap data:', e);
+        return {};
+      }
+    };
+
+    // Cal-Heatmapの初期化
+    var cal = new CalHeatMap();
+    cal.init({
+      itemSelector: "#heatmap",
+      data: "/api/v1/users/#{@user.id}/posts_activity?start=#{6.months.ago}&stop=#{Time.current}",
+      afterLoadData: parser,
+      cellSize: 12,
+      domain: "month",
+      subDomain: "day",
+      range: 6,
+      tooltip: true,
+      start: startDate,
+      domainLabelFormat: "%b",
+      legend: [1, 3, 6, 10],
+      weekStartOnMonday: false,
+      legendVerticalPosition: "bottom",
+      legendOrientation: "horizontal",
+      legendMargin: [0, 0, 0, 0],
+      displayLegend: false,
+      itemName: ["投稿", "投稿"],
+      subDomainTextFormat: "%d",
+      onClick: function(date, nb) {
+        if (nb !== null) {
+          alert(date + "に" + nb + "件の投稿がありました");
+        }
+      }
+    });
+  });
