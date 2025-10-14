@@ -78,6 +78,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.1)
+    bcrypt_pbkdf (1.1.1-arm64-darwin)
     benchmark (0.4.1)
     bigdecimal (3.2.3)
     bindex (0.8.1)
@@ -191,6 +192,10 @@ GEM
     nio4r (2.7.4)
     nokogiri (1.18.10-aarch64-linux-gnu)
       racc (~> 1.4)
+    nokogiri (1.18.10-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.18.10-x86_64-linux-gnu)
+      racc (~> 1.4)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     parallel (1.27.0)
@@ -198,6 +203,8 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.6.2-aarch64-linux)
+    pg (1.6.2-arm64-darwin)
+    pg (1.6.2-x86_64-linux)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -340,6 +347,8 @@ GEM
     temple (0.10.4)
     thor (1.4.0)
     thruster (0.1.15-aarch64-linux)
+    thruster (0.1.15-arm64-darwin)
+    thruster (0.1.15-x86_64-linux)
     tilt (2.6.1)
     timeout (0.4.3)
     turbo-rails (2.0.16)
@@ -370,6 +379,8 @@ GEM
 
 PLATFORMS
   aarch64-linux-gnu
+  arm64-darwin-24
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap
