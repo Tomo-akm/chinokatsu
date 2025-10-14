@@ -1,0 +1,64 @@
+volumes:
+  db-store:
+  bundle:
+  node_modules:
+
+services:
+  db:
+    image: postgres:16
+    container_name: chinokatsu_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: chinokatsu
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: chinokatsu_development
+      TZ: Asia/Tokyo
+    volumes:
+      - db-store:/var/lib/postgresql/data
+      - ./logs:/var/log/postgresql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chinokatsu"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - chinokatsu_network
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chinokatsu_web
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      RAILS_ENV: development
+      DB_HOST: db
+      DB_USERNAME: chinokatsu
+      DB_PASSWORD: password
+      DB_DATABASE: chinokatsu_development
+    volumes:
+      - .:/webapp
+      - bundle:/usr/local/bundle
+      - node_modules:/webapp/node_modules
+      - ./tmp/pids:/webapp/tmp/pids
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://0.0.0.0:3000/up"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - chinokatsu_network
+
+networks:
+  chinokatsu_network:
+    driver: bridge
