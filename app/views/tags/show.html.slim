@@ -3,7 +3,8 @@
 .container
   h1.mb-4
     span.badge.bg-primary.fs-4 ##{@tag.name}
-    small.text-muted (#{@tag.posts_count}件の投稿)
+    = " "
+    small.text-muted = "(#{@tag.posts_count}件の投稿)"
 
   = link_to "← 投稿一覧に戻る", posts_path, class: "btn btn-outline-secondary me-2 mb-3"
   = link_to "タグ一覧", tags_path, class: "btn btn-outline-secondary mb-3"
