@@ -5,7 +5,7 @@ FactoryBot.define do
 
     trait :with_tags do
       after(:create) do |post|
-        create_list(:tag, 3, posts: [post])
+        create_list(:tag, 3, posts: [ post ])
       end
     end
   end

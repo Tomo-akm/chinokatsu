@@ -37,7 +37,7 @@ RSpec.describe Post, type: :model do
       tag1 = create(:tag)
       tag2 = create(:tag)
 
-      post.tags << [tag1, tag2]
+      post.tags << [ tag1, tag2 ]
 
       expect(post.tags).to include(tag1, tag2)
       expect(post.tags.count).to eq(2)
