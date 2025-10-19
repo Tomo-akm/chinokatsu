@@ -194,7 +194,7 @@ favorite_languages = [
 ]
 
 # 研究室の配列
-research_labs = ["城間研", "赤嶺研", "國田研", "NAL研", "長山研", "岡崎研", "玉城研"]
+research_labs = [ "城間研", "赤嶺研", "國田研", "NAL研", "長山研", "岡崎研", "玉城研" ]
 
 # 個人メッセージの配列
 personal_messages = [

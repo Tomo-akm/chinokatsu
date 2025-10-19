@@ -5,7 +5,7 @@ class Tag < ApplicationRecord
   validates :name, presence: true, uniqueness: true, length: { maximum: 50 }
 
   scope :popular, -> { order(posts_count: :desc) }
-  scope :with_posts, -> { where('posts_count > 0') }
+  scope :with_posts, -> { where("posts_count > 0") }
 
   before_save :normalize_name
 
@@ -16,7 +16,7 @@ class Tag < ApplicationRecord
 
   def self.find_or_create_by_names(tag_names)
     return [] if tag_names.blank?
-    
+
     tag_names.map do |name|
       find_or_create_by(name: name.strip.downcase)
     end

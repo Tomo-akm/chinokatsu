@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :posts
-  resources :tags, only: [:index, :show]
-  get 'home/index'
-  get 'profile', to: 'profiles#show'
-  get 'profile/edit', to: 'profiles#edit', as: 'edit_profile'
-  patch 'profile', to: 'profiles#update'
-  get 'users/:id/profile', to: 'profiles#show', as: 'user_profile'
-  
-  
+  resources :tags, only: [ :index, :show ]
+  get "home/index"
+  get "profile", to: "profiles#show"
+  get "profile/edit", to: "profiles#edit", as: "edit_profile"
+  patch "profile", to: "profiles#update"
+  get "users/:id/profile", to: "profiles#show", as: "user_profile"
+
+
   # API endpoints for heatmap data
   namespace :api do
     namespace :v1 do

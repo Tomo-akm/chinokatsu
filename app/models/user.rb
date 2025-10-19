@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :posts, dependent: :destroy
-  
+
   validates :name, presence: true
   validates :internship_count, presence: true, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
 end
