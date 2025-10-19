@@ -296,16 +296,22 @@ student_posts_data.each_with_index do |data, index|
   users << user
 
   # 投稿を作成（過去6ヶ月に分散）
+  # 既存の投稿があるか確認（ユーザーと内容で一意性を判定）
   random_date = rand(6.months.ago..Time.current)
-  post = Post.create!(
+  post = Post.find_or_create_by!(
     content: data[:post],
-    user: user,
-    created_at: random_date,
-    updated_at: random_date
-  )
+    user: user
+  ) do |p|
+    p.created_at = random_date
+    p.updated_at = random_date
+  end
 
-  # タグを付与
-  assigned_tags = assign_tags_to_post(post, data[:post], tags)
+  # タグを付与（既に存在する場合はスキップ）
+  if post.post_tags.empty?
+    assigned_tags = assign_tags_to_post(post, data[:post], tags)
+  else
+    assigned_tags = post.tags
+  end
   tag_names = assigned_tags.map(&:name).join(", ")
 
   puts "Created user #{index + 1}: #{data[:name]}"
@@ -407,22 +413,39 @@ additional_posts = [
 ]
 
 # ランダムにユーザーに追加投稿を割り当て（アクティブなSNSにするため多めに投稿）
-30.times do |i|
-  random_user = users.sample
-  random_post = additional_posts.sample
+# 既存の投稿数を確認して、既に十分な投稿がある場合はスキップ
+current_post_count = Post.count
+target_additional_posts = 30
 
-  # ランダムな日付を生成（過去6ヶ月に分散）
-  random_date = rand(6.months.ago..Time.current)
-  post = Post.create!(
-    content: random_post,
-    user: random_user,
-    created_at: random_date,
-    updated_at: random_date
-  )
+if current_post_count < (student_posts_data.length + target_additional_posts)
+  posts_to_create = [(student_posts_data.length + target_additional_posts - current_post_count), target_additional_posts].min
 
-  # 追加投稿にもタグを付与
-  assigned_tags = assign_tags_to_post(post, random_post, tags)
-  puts "Created additional post #{i + 1} with tags: #{assigned_tags.map(&:name).join(', ')}"
+  posts_to_create.times do |i|
+    random_user = users.sample
+    random_post = additional_posts.sample
+
+    # ランダムな日付を生成（過去6ヶ月に分散）
+    random_date = rand(6.months.ago..Time.current)
+
+    # 既存チェック：同じユーザー+同じ内容の投稿がないか確認
+    post = Post.find_or_create_by!(
+      content: random_post,
+      user: random_user
+    ) do |p|
+      p.created_at = random_date
+      p.updated_at = random_date
+    end
+
+    # 追加投稿にもタグを付与（既に存在する場合はスキップ）
+    if post.post_tags.empty?
+      assigned_tags = assign_tags_to_post(post, random_post, tags)
+      puts "Created additional post #{i + 1} with tags: #{assigned_tags.map(&:name).join(', ')}"
+    else
+      puts "Skipped additional post #{i + 1} (already exists)"
+    end
+  end
+else
+  puts "Skipping additional posts creation - already have enough posts (#{current_post_count} posts)"
 end
 
 puts "\n" + "="*70
