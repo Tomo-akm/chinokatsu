@@ -38,3 +38,6 @@
 
 # Ignore node modules (not used with importmap)
 /node_modules
+
+# Ignore IDE files
+/.idea
