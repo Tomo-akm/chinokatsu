@@ -17,11 +17,15 @@ html
 
     link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"
     link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+
+    = stylesheet_link_tag "tailwind", "data-turbo-track": "reload"
     / Includes all stylesheet files in app/assets/stylesheets
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_include_tag "https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"
     = javascript_include_tag "chartkick", "data-turbo-track": "reload"
     = javascript_importmap_tags
+
+    script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"
 
   body style="background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);"
     nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
