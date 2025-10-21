@@ -15,17 +15,13 @@ html
 
     = favicon_link_tag('favicon.ico')
 
-    link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"
-    link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"
 
-    = stylesheet_link_tag "tailwind", "data-turbo-track": "reload"
-    / Includes all stylesheet files in app/assets/stylesheets
-    = stylesheet_link_tag :app, "data-turbo-track": "reload"
+    / Includes compiled stylesheet from app/assets/builds
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"
     = javascript_include_tag "chartkick", "data-turbo-track": "reload"
     = javascript_importmap_tags
-
-    script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"
 
   body style="background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);"
     = render "shared/header"
