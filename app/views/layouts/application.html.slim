@@ -32,6 +32,10 @@ html
             li.nav-item
               = link_to "commit log", posts_path, class: "nav-link text-white fw-medium"
 
+            li.nav-item
+              a.nav-link.text-white href="#" data-bs-toggle="modal" data-bs-target="#helpModal"
+                i.bi.bi-question-circle-fill
+
             - if user_signed_in?
               li.nav-item.dropdown
                 a.nav-link.dropdown-toggle.text-white.d-flex.align-items-center href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -59,3 +63,166 @@ html
     = render "shared/footer"
 
     script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"
+
+    .modal.fade#helpModal tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true"
+      .modal-dialog.modal-dialog-centered.modal-lg
+        .modal-content
+          .modal-header
+            h5.modal-title#helpModalLabel
+              i.bi.bi-info-circle.me-2
+              | 「ちのgit」の用語解説
+            button.btn-close type="button" data-bs-dismiss="modal" aria-label="Close"
+          .modal-body
+            p このアプリケーションでは、ソフトウェア開発で使われるgithubの用語をボタンのUIとして利用しています。
+
+            hr
+
+            dl.row
+              / ===== Repository =====
+              dt.col-sm-4 Repository (リポジトリ)
+              dd.col-sm-8
+                .row
+                  .col-md-6.mb-3.mb-md-0
+                    .card.h-100
+                      .card-header.bg-dark.text-white
+                        i.bi.bi-journal-bookmark.me-2
+                        | 本来の意味 (開発の現場)
+                      .card-body
+                        p.card-text
+                          | プロジェクト全体のファイルや変更履歴を保管しておく「貯蔵庫」です。すべての情報がここに詰まっています。
+                  .col-md-6
+                    .card.h-100
+                      .card-header.bg-primary.text-white
+                        i.bi.bi-collection.me-2
+                        | このサイトでの使い方
+                      .card-body
+                        p.card-text
+                          | 特定のテーマに関する記録をまとめておく「保管場所」です。「筋トレ日記」「読書ログ」などテーマごとに作成します。
+
+              / ===== Branch =====
+              dt.col-sm-4 Branch (ブランチ)
+              dd.col-sm-8
+                .row
+                  .col-md-6.mb-3.mb-md-0
+                    .card.h-100
+                      .card-header.bg-dark.text-white
+                        i.bi.bi-diagram-3.me-2
+                        | 本来の意味 (開発の現場)
+                      .card-body
+                        p.card-text
+                          | メインのバージョンに影響を与えずに、新しい機能の開発や修正を行うための「作業用の枝」です。
+                  .col-md-6
+                    .card.h-100
+                      .card-header.bg-primary.text-white
+                        i.bi.bi-lightbulb.me-2
+                        | このサイトでの使い方
+                      .card-body
+                        p.card-text
+                          | メインの記録とは別に、新しいアイデアを試したり下書きを書いたりするための「下書きスペース」として使えます。
+
+              / ===== New Commit =====
+              dt.col-sm-4 New Commit (コミット)
+              dd.col-sm-8
+                .row
+                  .col-md-6.mb-3.mb-md-0
+                    .card.h-100
+                      .card-header.bg-dark.text-white
+                        i.bi.bi-check2-square.me-2
+                        | 本来の意味 (開発の現場)
+                      .card-body
+                        p.card-text
+                          | ファイルへの変更を「一つの意味のある単位」として記録することです。セーブポイントのようなものです。
+                  .col-md-6
+                    .card.h-100
+                      .card-header.bg-primary.text-white
+                        i.bi.bi-pencil-square.me-2
+                        | このサイトでの使い方
+                      .card-body
+                        p.card-text
+                          | 日々の活動を「一つの投稿」として記録することです。このサイトでの一番基本的な操作になります。
+
+              / ===== Commit Log =====
+              dt.col-sm-4 Commit Log (コミットログ)
+              dd.col-sm-8
+                .row
+                  .col-md-6.mb-3.mb-md-0
+                    .card.h-100
+                      .card-header.bg-dark.text-white
+                        i.bi.bi-github.me-2
+                        | 本来の意味 (開発の現場)
+                      .card-body
+                        p.card-text
+                          | プログラムの変更履歴を記録したものです。「いつ、誰が、どんな変更をしたか」をファイル単位で正確に確認できます。
+                  .col-md-6
+                    .card.h-100
+                      .card-header.bg-primary.text-white
+                        i.bi.bi-chat-left-text.me-2
+                        | このサイトでの使い方
+                      .card-body
+                        p.card-text
+                          | あなたや他の人が投稿した「日々の活動記録」の一覧です。過去の投稿を時系列で振り返ることができます。
+
+              / ===== Push =====
+              dt.col-sm-4 Push (プッシュ)
+              dd.col-sm-8
+                .row
+                  .col-md-6.mb-3.mb-md-0
+                    .card.h-100
+                      .card-header.bg-dark.text-white
+                        i.bi.bi-cloud-arrow-up.me-2
+                        | 本来の意味 (開発の現場)
+                      .card-body
+                        p.card-text
+                          | 手元のPCで行った記録(コミット)を、GitHubなどの共有サーバーにアップロードして他の人と共有することです。
+                  .col-md-6
+                    .card.h-100
+                      .card-header.bg-primary.text-white
+                        i.bi.bi-send.me-2
+                        | このサイトでの使い方
+                      .card-body
+                        p.card-text
+                          | あなたが書いた記録を、他の人も見られるように「公開」することです。下書きを投稿するイメージです。
+
+              / ===== Revert =====
+              dt.col-sm-4 Revert (リバート)
+              dd.col-sm-8
+                .row
+                  .col-md-6.mb-3.mb-md-0
+                    .card.h-100
+                      .card-header.bg-dark.text-white
+                        i.bi.bi-arrow-return-left.me-2
+                        | 本来の意味 (開発の現場)
+                      .card-body
+                        p.card-text
+                          | 過去の特定のコミットを「打ち消す」ための新しいコミットを作成します。安全に間違いを修正する方法です。
+                  .col-md-6
+                    .card.h-100
+                      .card-header.bg-primary.text-white
+                        i.bi.bi-trash3.me-2
+                        | このサイトでの使い方
+                      .card-body
+                        p.card-text
+                          | 一度公開した投稿を「非公開に戻す」または「削除する」操作です。間違いを安全に取り消せます。
+
+              / ===== Rebase =====
+              dt.col-sm-4 Rebase (リベース)
+              dd.col-sm-8
+                .row
+                  .col-md-6.mb-3.mb-md-0
+                    .card.h-100
+                      .card-header.bg-dark.text-white
+                        i.bi.bi-sign-merge-left.me-2
+                        | 本来の意味 (開発の現場)
+                      .card-body
+                        p.card-text
+                          | 変更履歴を整理して、きれいに整えるための高度な操作です。歴史を書き換えるイメージです。
+                  .col-md-6
+                    .card.h-100
+                      .card-header.bg-primary.text-white
+                        i.bi.bi-magic.me-2
+                        | このサイトでの使い方
+                      .card-body
+                        p.card-text
+                          | 投稿の日付や順番を後から編集して、ログ全体をきれいに「整頓」するための応用的な機能です。
+          .modal-footer
+            button.btn.btn-secondary type="button" data-bs-dismiss="modal" 閉じる
