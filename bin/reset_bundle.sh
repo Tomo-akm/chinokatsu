@@ -2,7 +2,7 @@
 
 set -e
 
-TARGET_VOLUME='bundle'
+TARGET_VOLUME='chinokatsu_bundle'
 
 echo "Stopping containers..."
 docker compose down
