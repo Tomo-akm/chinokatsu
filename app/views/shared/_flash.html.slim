@@ -1,9 +1,9 @@
 ruby:
   flash_types = [
-          { key: :notice,  color: 'primary', icon: 'info-circle' },
-          { key: :success, color: 'success', icon: 'check-circle' },
-          { key: :alert,   color: 'warning', icon: 'exclamation-triangle' },
-          { key: :error,   color: 'danger',  icon: 'x-square' },
+          { key: :notice,  color: 'primary', icon: 'fas fa-info-circle' },
+          { key: :success, color: 'success', icon: 'fas fa-check-circle' },
+          { key: :alert,   color: 'warning', icon: 'fas fa-exclamation-triangle' },
+          { key: :error,   color: 'danger',  icon: 'fas fa-times-circle' },
   ].freeze
 
   p_flash_type = defined?(l_flash_type) ? l_flash_type : nil
@@ -16,7 +16,7 @@ ruby:
     .mb-2.me-3.toast.hide class="border-#{type[:color]}" data-controller="turbo-toast"
       .toast-header class="text-#{type[:color]}"
         strong.me-auto
-          i.bi class="bi-#{type[:icon]} me-1"
+          i class="#{type[:icon]} me-1"
           = type[:key].to_s.humanize
         button.btn-close data-bs-dismiss='toast'
       .toast-body

@@ -1,0 +1,29 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+  .container
+    = link_to "ちのgit", root_path, class: "navbar-brand fs-3 fw-bold text-white text-decoration-none"
+    button.navbar-toggler type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse#navbarSupportedContent
+      ul.navbar-nav.ms-auto.align-items-lg-center.gap-3
+        li.nav-item
+          = link_to "commit log", posts_path, class: "nav-link text-white fw-medium"
+
+        - if user_signed_in?
+          li.nav-item.dropdown
+            a.nav-link.dropdown-toggle.text-white.fw-medium href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+              i.fas.fa-user-circle.me-2
+              = current_user&.email
+            ul.dropdown-menu.dropdown-menu-end
+              li
+                = link_to "プロフィール", profile_path, class: "dropdown-item"
+              li
+                = link_to "ユーザー編集", edit_user_registration_path, class: "dropdown-item"
+              li
+                hr.dropdown-divider
+              li
+                = link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" }, class: "dropdown-item text-danger"
+        - else
+          li.nav-item
+            = link_to "ログイン", new_user_session_path, class: "nav-link text-white fw-medium"
+          li.nav-item
+            = link_to "新規登録", new_user_registration_path, class: "nav-link text-white fw-medium"
