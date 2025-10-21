@@ -1,20 +1,10 @@
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!, except: [ :show ]
 
   def show
     @user = params[:id] ? User.find(params[:id]) : (current_user if user_signed_in?)
-    redirect_to new_user_session_path unless @user
     @posts = @user.posts.order(created_at: :desc)
-    
-    # ヒートマップ用の統計情報を計算
-    @total_posts = @user.posts.count
-    @posts_this_month = @user.posts.where(created_at: 1.month.ago..Time.current).count
-    @max_posts_per_day = @user.posts
-                              .where(created_at: 6.months.ago..Time.current)
-                              .group("DATE(created_at)")
-                              .count
-                              .values
-                              .max || 0
+    prepare_heatmap_data
   end
 
   def edit
@@ -24,7 +14,7 @@ class ProfilesController < ApplicationController
   def update
     @user = current_user
     if @user.update(profile_params)
-      redirect_to profile_path, notice: 'プロフィールを更新しました。'
+      redirect_to profile_path, notice: "プロフィールを更新しました。"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -34,5 +24,20 @@ class ProfilesController < ApplicationController
 
   def profile_params
     params.require(:user).permit(:favorite_language, :research_lab, :internship_count, :personal_message)
+  end
+
+  def prepare_heatmap_data
+    @date = Date.current
+    @date_6_months_ago = 6.months.ago.to_date
+
+    @active_user_counts_6_months = @user.posts
+                                         .where(created_at: heatmap_date_range)
+                                         .group_by_day(:created_at, range: @date_6_months_ago..@date, format: "%Y-%m-%d")
+                                         .count
+                                         .map { |date, count| [ date, count ] }
+  end
+
+  def heatmap_date_range
+    @date_6_months_ago.beginning_of_day..@date.end_of_day
   end
 end

@@ -26,7 +26,7 @@ module Chinokatsu
 
     # Set default locale to Japanese
     config.i18n.default_locale = :ja
-    config.i18n.available_locales = [:ja, :en]
+    config.i18n.available_locales = [ :ja, :en ]
 
     # Configure generators to use Slim
     config.generators do |g|

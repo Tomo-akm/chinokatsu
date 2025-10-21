@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [ :index, :show ]
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :check_post_ownership, only: %i[ edit update destroy ]
 
@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   def index
     @q = Post.ransack(params[:q])
     @posts = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(10)
-    
+
     # サイドバー用のタグ一覧（投稿数上位10個）
     @popular_tags = Tag.with_posts.popular.limit(10)
   end

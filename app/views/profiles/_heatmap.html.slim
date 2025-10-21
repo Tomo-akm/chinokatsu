@@ -1,0 +1,25 @@
+/ ヒートマップ表示エリア
+.heatmap-container
+  ruby:
+    max_posts = active_user_counts.map { |entry| entry[1] }.max || 0
+    chart_id = "heatmap_#{user.id}_#{date.year}_#{date.month}"
+
+  .heatmap-chart[
+    data-controller="heatmap"
+    data-heatmap-chart-data-value=active_user_counts.to_json
+    data-heatmap-date-start-value=date_6_months_ago
+    data-heatmap-date-end-value=date
+    data-heatmap-max-posts-value=max_posts
+    data-heatmap-chart-id-value=chart_id
+  ]
+
+  / GitHub風の凡例（中央揃え）
+  .heatmap-legend
+    span.heatmap-legend-label Less
+    .heatmap-legend-colors
+      .heatmap-legend-square.heatmap-legend-square--level-0
+      .heatmap-legend-square.heatmap-legend-square--level-1
+      .heatmap-legend-square.heatmap-legend-square--level-2
+      .heatmap-legend-square.heatmap-legend-square--level-3
+      .heatmap-legend-square.heatmap-legend-square--level-4
+    span.heatmap-legend-label More
