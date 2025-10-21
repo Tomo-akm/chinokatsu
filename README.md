@@ -111,6 +111,12 @@ docker compose exec web bundle exec rspec
 
 # アセットのコンパイル
 docker compose exec web bin/rails assets:precompile
+
+# Sassのビルド
+docker compose exec web bin/rails dartsass:build
+
+# Sassの自動監視（開発中）
+docker compose exec web bin/rails dartsass:watch
 ```
 
 **注意:** コンテナが起動していない場合は、`docker compose run --rm web <command>` を使用してください。
@@ -156,6 +162,46 @@ docker compose exec web bin/rails db:reset
 
 # マイグレーションの状態を確認
 docker compose exec web bin/rails db:migrate:status
+```
+
+### Sassのビルド
+
+このプロジェクトでは、BootstrapとカスタムスタイルにDart Sassを使用しています。
+
+#### 構成
+
+- **ソースファイル**: `app/assets/stylesheets/application.scss`
+- **ビルド先**: `app/assets/builds/application.css`（自動生成）
+
+#### ビルドコマンド
+
+```bash
+# 1回だけビルド
+docker compose exec web bin/rails dartsass:build
+
+# ファイル変更を監視して自動ビルド（開発時）
+docker compose exec web bin/rails dartsass:watch
+```
+
+#### 注意事項
+
+- `application.scss`を編集した後は、必ず`dartsass:build`を実行してください
+- 開発中は`dartsass:watch`を別ターミナルで起動しておくと便利です
+- `app/assets/builds/application.css`は自動生成されるため、直接編集しないでください
+- `Procfile.dev`には`dartsass:watch`が含まれているため、`bin/dev`で起動すると自動監視されます
+
+#### スタイルの編集
+
+すべてのカスタムスタイルは`app/assets/stylesheets/application.scss`に記述してください：
+
+```scss
+// Bootstrap 5のインポート
+@import "bootstrap";
+
+// カスタムスタイル
+.navbar {
+  // あなたのスタイル
+}
 ```
 
 ## 開発ルール
