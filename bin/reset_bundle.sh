@@ -2,21 +2,13 @@
 
 set -e
 
-TARGET_VOLUME='chinokatsu_bundle'
-
 echo "Stopping containers..."
 docker compose down
 
-echo "Removing exited containers using volume: $TARGET_VOLUME..."
-docker ps -a --quiet --filter "status=exited" --filter "volume=$TARGET_VOLUME" | while read LINE
-do
-  if [ -n "$LINE" ]; then
-    echo "Removing container: $LINE"
-    docker container rm $LINE
-  fi
-done
+echo "Removing bundle volume..."
+docker volume rm chinokatsu_bundle || echo "Volume chinokatsu_bundle does not exist or already removed"
 
-echo "Removing volume: $TARGET_VOLUME..."
-docker volume rm $TARGET_VOLUME || echo "Volume $TARGET_VOLUME does not exist or already removed"
+echo "Rebuilding and starting containers..."
+docker compose up -d --build
 
-echo "Done! Run 'docker compose up' to rebuild."
+echo "Done! Bundle has been reset and containers are running."
