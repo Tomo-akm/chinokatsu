@@ -48,10 +48,10 @@ end
 - ローカル起動で簡易回帰確認。
 
 ### Git運用
+#### Commitについて
 - 1論理変更=1コミット、Prefix使用（feat/fix/test/refactor/style/chore/docs 等）。
 - 各コミットは動く状態を保つ。関連ファイル（Model/Controller/View/テスト）をなるべく同コミットに含める。
-- Bodyは書かず、Co-Aurhorにclaudeを含めない。
-
+-【重要】commit分はbodyを書かず、Co-Authored By:Claude Codeを記載しない。 
 ---
 
 注記: 以前このファイルに含まれていた詳細な長文ガイドは、上記の各ドキュメントへ分割・移動しました。必要に応じて参照してください。
