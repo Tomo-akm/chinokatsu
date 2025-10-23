@@ -137,19 +137,19 @@ RSpec.describe User, type: :model do
       it 'gmail.comを拒否する' do
         user = build(:user, email: 'test@gmail.com', password: 'password123')
         expect(user).not_to be_valid
-        expect(user.errors[:email]).to include('琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみ登録できます')
+        expect(user.errors[:email]).to include('は琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみ登録できます')
       end
 
       it 'u-ryukyu.ac.jpに似たドメインを拒否する' do
         user = build(:user, email: 'fake@evil-u-ryukyu.ac.jp', password: 'password123')
         expect(user).not_to be_valid
-        expect(user.errors[:email]).to include('琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみ登録できます')
+        expect(user.errors[:email]).to include('は琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみ登録できます')
       end
 
       it '末尾が異なるドメインを拒否する' do
         user = build(:user, email: 'test@u-ryukyu.ac.jp.fake.com', password: 'password123')
         expect(user).not_to be_valid
-        expect(user.errors[:email]).to include('琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみ登録できます')
+        expect(user.errors[:email]).to include('は琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみ登録できます')
       end
     end
   end

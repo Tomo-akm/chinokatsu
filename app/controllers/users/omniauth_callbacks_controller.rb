@@ -1,30 +1,28 @@
+# frozen_string_literal: true
+
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_action :verify_authenticity_token, only: :google_oauth2
+
+  INVALID_DOMAIN_MESSAGE = "琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみアクセスできます"
+  SUCCESS_MESSAGE = "Googleアカウントでログインしました"
+  FAILURE_MESSAGE = "Google認証に失敗しました。もう一度お試しください"
 
   def google_oauth2
     auth = request.env["omniauth.auth"]
 
-    # ドメイン検証
-    unless valid_university_email?(auth.info.email)
-      flash[:alert] = "琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみアクセスできます"
-      redirect_to new_user_session_path
-      return
-    end
+    return handle_invalid_domain unless valid_university_email?(auth.info.email)
 
     @user = User.from_omniauth(auth)
 
     if @user.persisted?
-      flash[:notice] = "Googleアカウントでログインしました"
-      sign_in_and_redirect @user, event: :authentication
+      handle_success
     else
-      flash[:alert] = "アカウントの作成に失敗しました: #{@user.errors.full_messages.join(', ')}"
-      session["devise.google_data"] = auth.except(:extra)
-      redirect_to new_user_registration_url
+      handle_creation_failure
     end
   end
 
   def failure
-    flash[:alert] = "Google認証に失敗しました。もう一度お試しください"
+    flash[:alert] = FAILURE_MESSAGE
     redirect_to new_user_session_path
   end
 
@@ -32,5 +30,21 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def valid_university_email?(email)
     email.match?(User::ALLOWED_DOMAIN_REGEX)
+  end
+
+  def handle_invalid_domain
+    flash[:alert] = INVALID_DOMAIN_MESSAGE
+    redirect_to new_user_session_path
+  end
+
+  def handle_success
+    flash[:notice] = SUCCESS_MESSAGE
+    sign_in_and_redirect @user, event: :authentication
+  end
+
+  def handle_creation_failure
+    flash[:alert] = "アカウントの作成に失敗しました: #{@user.errors.full_messages.join(', ')}"
+    session["devise.google_data"] = request.env["omniauth.auth"].except(:extra)
+    redirect_to new_user_registration_url
   end
 end
