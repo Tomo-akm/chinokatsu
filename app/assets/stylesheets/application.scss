@@ -253,3 +253,122 @@
     padding: 10px 20px;
   }
 }
+
+// Toast Notifications (Modern Design with Gray Base)
+.toast-container {
+  // トーストコンテナは右上に固定
+  .toast {
+    min-width: 320px;
+    max-width: 420px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    animation: slideInRight 0.3s ease-out;
+    border: none;
+
+    &.hiding {
+      animation: slideOutRight 0.3s ease-out;
+    }
+
+    .toast-body {
+      padding: 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #2d3748;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      i {
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+
+      span {
+        flex: 1;
+      }
+    }
+
+    .btn-close {
+      margin: 0;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    // カラーバリエーション（左ボーダー + アイコンカラー）
+    &.text-bg-info {
+      background: #f7fafc;
+      border-left: 4px solid #3182ce;
+
+      i {
+        color: #3182ce;
+      }
+    }
+
+    &.text-bg-success {
+      background: #f0fdf4;
+      border-left: 4px solid #10b981;
+
+      i {
+        color: #10b981;
+      }
+    }
+
+    &.text-bg-warning {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+
+      i {
+        color: #f59e0b;
+      }
+    }
+
+    &.text-bg-danger {
+      background: #fef2f2;
+      border-left: 4px solid #ef4444;
+
+      i {
+        color: #ef4444;
+      }
+    }
+  }
+}
+
+// アニメーション定義
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+// レスポンシブ対応
+@media (max-width: 576px) {
+  .toast-container .toast {
+    min-width: 280px;
+    max-width: calc(100vw - 2rem);
+  }
+}
