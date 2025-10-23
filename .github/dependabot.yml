@@ -1,12 +1,76 @@
 version: 2
 updates:
-- package-ecosystem: bundler
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-- package-ecosystem: github-actions
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+      time: "04:00"
+      timezone: "Asia/Tokyo"
+    open-pull-requests-limit: 5
+    groups:
+      rails-dependencies:
+        patterns:
+          - "rails"
+          - "activerecord"
+          - "activesupport"
+          - "actionpack"
+          - "actionview"
+          - "actionmailer"
+          - "actioncable"
+          - "actionmailbox"
+          - "actiontext"
+          - "activestorage"
+          - "railties"
+      test-dependencies:
+        patterns:
+          - "rspec*"
+          - "factory_bot*"
+          - "capybara"
+          - "selenium-webdriver"
+      security-tools:
+        patterns:
+          - "brakeman"
+      lint-tools:
+        patterns:
+          - "rubocop*"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+      # 手動管理したい重要なgem
+      - dependency-name: "pg"
+      - dependency-name: "mysql2"
+      - dependency-name: "sqlite3"
+    commit-message:
+      prefix: "chore(deps)"
+      include: scope
+    labels:
+      - "dependencies"
+      - "ruby"
+    rebase-strategy: auto
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+      time: "04:00"
+      timezone: "Asia/Tokyo"
+    open-pull-requests-limit: 5
+    groups:
+      ci-dependencies:
+        patterns:
+          - "actions/*"
+          - "ruby/setup-ruby"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+    commit-message:
+      prefix: "chore(actions)"
+      include: scope
+    labels:
+      - "dependencies"
+      - "ci"
+    rebase-strategy: auto
