@@ -6,23 +6,26 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     # ドメイン検証
     unless valid_university_email?(auth.info.email)
-      redirect_to new_user_session_path, alert: "琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみアクセスできます"
+      flash[:alert] = "琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみアクセスできます"
+      redirect_to new_user_session_path
       return
     end
 
     @user = User.from_omniauth(auth)
 
     if @user.persisted?
+      flash[:notice] = "Googleアカウントでログインしました"
       sign_in_and_redirect @user, event: :authentication
-      set_flash_message(:notice, :success, kind: "Google") if is_navigational_format?
     else
+      flash[:alert] = "アカウントの作成に失敗しました: #{@user.errors.full_messages.join(', ')}"
       session["devise.google_data"] = auth.except(:extra)
-      redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+      redirect_to new_user_registration_url
     end
   end
 
   def failure
-    redirect_to root_path, alert: "認証に失敗しました"
+    flash[:alert] = "Google認証に失敗しました。もう一度お試しください"
+    redirect_to new_user_session_path
   end
 
   private
