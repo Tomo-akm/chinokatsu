@@ -4,7 +4,7 @@ ja:
       user:
         email: "メールアドレス"
         password: "パスワード"
-        password_confirmation: "パスワード確認"
+        password_confirmation: "パスワード（確認用）"
         current_password: "現在のパスワード"
         name: "名前"
       post:
@@ -15,6 +15,10 @@ ja:
       post: "commit"
     errors:
       models:
+        user:
+          attributes:
+            password_confirmation:
+              confirmation: "とパスワードが一致しません"
         post:
           attributes:
             user:
@@ -24,6 +28,11 @@ ja:
       messages:
         required: "が必要です"
         blank: "を入力してください"
+        confirmation: "と%{attribute}が一致しません"
+        taken: "はすでに使用されています"
+        too_short: "は%{count}文字以上で入力してください"
+        too_long: "は%{count}文字以内で入力してください"
+        invalid: "は無効です"
   
   helpers:
     submit:

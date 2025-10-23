@@ -15,6 +15,15 @@ class User < ApplicationRecord
 
   validate :university_email_domain, if: :email_changed?
 
+  # OmniAuth経由の場合はパスワード検証をスキップ
+  def password_required?
+    super && provider.blank?
+  end
+
+  def email_required?
+    super && provider.blank?
+  end
+
   # OmniAuthコールバック用
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -31,7 +40,7 @@ class User < ApplicationRecord
     return if email.blank?
 
     unless email.match?(ALLOWED_DOMAIN_REGEX)
-      errors.add(:email, "琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみ登録できます")
+      errors.add(:email, "は琉球大学のメールアドレス（@*.u-ryukyu.ac.jp）のみ登録できます")
     end
   end
 end
