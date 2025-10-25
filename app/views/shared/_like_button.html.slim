@@ -1,0 +1,14 @@
+= turbo_frame_tag "like_button_#{post.id}" do
+  - if user_signed_in?
+    - if post.liked_by?(current_user)
+      = button_to [post, post.likes.find_by(user: current_user)], method: :delete, class: "btn p-0 border-0 bg-transparent text-danger" do
+        i.fas.fa-heart
+        |  #{post.likes_count}
+    - else
+      = button_to [post, post.likes.build], method: :post, class: "btn p-0 border-0 bg-transparent text-muted" do
+        i.far.fa-heart
+        |  #{post.likes_count}
+  - else
+    .text-muted
+      i.far.fa-heart
+      |  #{post.likes_count}
