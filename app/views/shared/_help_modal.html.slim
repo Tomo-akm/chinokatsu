@@ -1,0 +1,137 @@
+.modal.fade#helpModal tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true"
+  .modal-dialog.modal-dialog-centered.modal-lg
+    .modal-content
+      .modal-header
+        h5.modal-title#helpModalLabel
+          i.bi.bi-info-circle.me-2
+          | 「ちのgit」の用語解説
+        button.btn-close type="button" data-bs-dismiss="modal" aria-label="Close"
+      .modal-body
+        dl.row
+          / ===== Repository =====
+          dt.col-sm-4 Repository (リポジトリ)
+          dd.col-sm-8
+            .row
+              .col-md-6.mb-3.mb-md-0
+                .card.h-100
+                  .card-header.bg-dark.text-white
+                    i.bi.bi-journal-bookmark.me-2
+                    | 本来の意味 (開発の現場)
+                  .card-body
+                    p.card-text
+                      | プロジェクト全体のファイルや変更履歴を保管しておく「貯蔵庫」です。すべての情報がここに詰まっています。
+              .col-md-6
+                .card.h-100
+                  .card-header.bg-primary.text-white
+                    i.bi.bi-collection.me-2
+                    | このサイトでの使い方
+                  .card-body
+                    p.card-text
+                      | 就活の進捗や記録を投稿し、みんなで共有する場所です。ここを見れば、他の人の活動状況も分かります。
+
+          / ===== New Commit =====
+          dt.col-sm-4 Commit (コミット)
+          dd.col-sm-8
+            .row
+              .col-md-6.mb-3.mb-md-0
+                .card.h-100
+                  .card-header.bg-dark.text-white
+                    i.bi.bi-check2-square.me-2
+                    | 本来の意味 (開発の現場)
+                  .card-body
+                    p.card-text
+                      | ファイルへの変更を「一つの意味のある単位」として記録することです。セーブポイントのようなものです。
+              .col-md-6
+                .card.h-100
+                  .card-header.bg-primary.text-white
+                    i.bi.bi-pencil-square.me-2
+                    | このサイトでの使い方
+                  .card-body
+                    p.card-text
+                      | 面接の感想や企業説明会のメモなど、就職活動における一つ一つの出来事を投稿するために記述する画面に移ります。
+
+          / ===== Commit Log =====
+          dt.col-sm-4 Commit Log (コミットログ)
+          dd.col-sm-8
+            .row
+              .col-md-6.mb-3.mb-md-0
+                .card.h-100
+                  .card-header.bg-dark.text-white
+                    i.bi.bi-github.me-2
+                    | 本来の意味 (開発の現場)
+                  .card-body
+                    p.card-text
+                      | プログラムの変更履歴を記録したものです。「いつ、誰が、どんな変更をしたか」をファイル単位で正確に確認できます。
+              .col-md-6
+                .card.h-100
+                  .card-header.bg-primary.text-white
+                    i.bi.bi-chat-left-text.me-2
+                    | このサイトでの使い方
+                  .card-body
+                    p.card-text
+                      | あなたや他の人が投稿した、就職活動の記録一覧です。時系列で活動を振り返ったり、他の人の進捗を確認したりできます。
+
+          / ===== Push =====
+          dt.col-sm-4 Push (プッシュ)
+          dd.col-sm-8
+            .row
+              .col-md-6.mb-3.mb-md-0
+                .card.h-100
+                  .card-header.bg-dark.text-white
+                    i.bi.bi-cloud-arrow-up.me-2
+                    | 本来の意味 (開発の現場)
+                  .card-body
+                    p.card-text
+                      | 手元のPCで行った記録(コミット)を、GitHubなどの共有サーバーにアップロードして他の人と共有することです。
+              .col-md-6
+                .card.h-100
+                  .card-header.bg-primary.text-white
+                    i.bi.bi-send.me-2
+                    | このサイトでの使い方
+                  .card-body
+                    p.card-text
+                      | 作成した就活の記録(コミット)を、みんなが見られるようにリポジトリに投稿することです。これで他の人にあなたの活動が共有されます。
+
+          / ===== Revert =====
+          dt.col-sm-4 Revert (リバート)
+          dd.col-sm-8
+            .row
+              .col-md-6.mb-3.mb-md-0
+                .card.h-100
+                  .card-header.bg-dark.text-white
+                    i.bi.bi-arrow-return-left.me-2
+                    | 本来の意味 (開発の現場)
+                  .card-body
+                    p.card-text
+                      | 過去の特定のコミットを「打ち消す」ための新しいコミットを作成します。安全に間違いを修正する方法です。
+              .col-md-6
+                .card.h-100
+                  .card-header.bg-primary.text-white
+                    i.bi.bi-trash3.me-2
+                    | このサイトでの使い方
+                  .card-body
+                    p.card-text
+                      | 投稿した内容に間違いがあった場合や、状況が変わった場合に、その投稿を消すことができます。
+
+          / ===== Rebase =====
+          dt.col-sm-4 Rebase (リベース)
+          dd.col-sm-8
+            .row
+              .col-md-6.mb-3.mb-md-0
+                .card.h-100
+                  .card-header.bg-dark.text-white
+                    i.bi.bi-sign-merge-left.me-2
+                    | 本来の意味 (開発の現場)
+                  .card-body
+                    p.card-text
+                      | 変更履歴を整理して、きれいに整えるための高度な操作です。歴史を書き換えるイメージです。
+              .col-md-6
+                .card.h-100
+                  .card-header.bg-primary.text-white
+                    i.bi.bi-magic.me-2
+                    | このサイトでの使い方
+                  .card-body
+                    p.card-text
+                      | 活動の記録に変更があった時に、その投稿の編集をすることができます。
+      .modal-footer
+        button.btn.btn-secondary type="button" data-bs-dismiss="modal" 閉じる

@@ -418,7 +418,7 @@ current_post_count = Post.count
 target_additional_posts = 30
 
 if current_post_count < (student_posts_data.length + target_additional_posts)
-  posts_to_create = [(student_posts_data.length + target_additional_posts - current_post_count), target_additional_posts].min
+  posts_to_create = [ (student_posts_data.length + target_additional_posts - current_post_count), target_additional_posts ].min
 
   posts_to_create.times do |i|
     random_user = users.sample

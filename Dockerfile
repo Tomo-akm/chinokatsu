@@ -44,6 +44,9 @@ RUN gem update --system ${RUBYGEMS_VERSION}
 COPY Gemfile.lock* ./
 RUN bundle install
 
+# Install foreman for bin/dev
+RUN gem install foreman
+
 # Copy application code
 COPY . .
 
@@ -58,5 +61,5 @@ ENTRYPOINT ["entrypoint.sh"]
 # Expose port
 EXPOSE 3000
 
-# Start the server
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+# Start the server with bin/dev (runs both Rails server and dartsass:watch)
+CMD ["bin/dev"]
