@@ -6,9 +6,9 @@ class LikesController < ApplicationController
     @like = @post.likes.build(user: current_user)
 
     if @like.save
-      render partial: 'shared/like_button', locals: { post: @post }
+      render partial: "shared/like_button", locals: { post: @post }
     else
-      render partial: 'shared/like_button', locals: { post: @post }, status: :unprocessable_entity
+      render partial: "shared/like_button", locals: { post: @post }, status: :unprocessable_entity
     end
   end
 
@@ -16,9 +16,9 @@ class LikesController < ApplicationController
     @like = @post.likes.find_by(user: current_user)
 
     if @like&.destroy
-      render partial: 'shared/like_button', locals: { post: @post }
+      render partial: "shared/like_button", locals: { post: @post }
     else
-      render partial: 'shared/like_button', locals: { post: @post }, status: :unprocessable_entity
+      render partial: "shared/like_button", locals: { post: @post }, status: :unprocessable_entity
     end
   end
 
