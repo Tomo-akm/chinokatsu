@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :posts
+  resources :posts do
+    resources :likes, only: [:create, :destroy]
+  end
   resources :tags, only: [ :index, :show ]
   get "home/index"
   get "profile", to: "profiles#show"

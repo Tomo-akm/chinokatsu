@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
+  has_many :likes, dependent: :destroy
 
   validates :content, presence: true
 
@@ -26,5 +27,14 @@ class Post < ApplicationRecord
 
   def tag_names
     tags.pluck(:name).join(", ")
+  end
+
+  def liked_by?(user)
+    return false unless user
+    likes.exists?(user: user)
+  end
+
+  def likes_count
+    likes.count
   end
 end
