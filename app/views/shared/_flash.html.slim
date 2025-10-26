@@ -1,23 +1,21 @@
-ruby:
-  flash_types = [
-          { key: :notice,  color: 'primary', icon: 'fas fa-info-circle' },
-          { key: :success, color: 'success', icon: 'fas fa-check-circle' },
-          { key: :alert,   color: 'warning', icon: 'fas fa-exclamation-triangle' },
-          { key: :error,   color: 'danger',  icon: 'fas fa-times-circle' },
-  ].freeze
+/ トーストコンテナ（右上に固定）
+/ Deviseのページ（sessions、registrations）では非表示（インラインでエラー表示するため）
+- unless controller_name.in?(%w[sessions registrations passwords confirmations unlocks])
+  .toast-container.position-fixed.top-0.end-0.p-3 style="z-index: 9999;"
+    ruby:
+      flash_types = [
+              { key: :notice,  color: 'info', icon: 'fas fa-info-circle' },
+              { key: :success, color: 'success', icon: 'fas fa-check-circle' },
+              { key: :alert,   color: 'warning', icon: 'fas fa-exclamation-triangle' },
+              { key: :error,   color: 'danger',  icon: 'fas fa-times-circle' },
+      ].freeze
 
-  p_flash_type = defined?(l_flash_type) ? l_flash_type : nil
-  p_flash_message = defined?(l_flash_message) ? l_flash_message : nil
-
-- flash_types.each do |type|
-  - message = flash[type[:key]].presence
-  - message ||= p_flash_message if type[:key] == p_flash_type
-  - if message.present?
-    .mb-2.me-3.toast.hide class="border-#{type[:color]}" data-controller="turbo-toast"
-      .toast-header class="text-#{type[:color]}"
-        strong.me-auto
-          i class="#{type[:icon]} me-1"
-          = type[:key].to_s.humanize
-        button.btn-close data-bs-dismiss='toast'
-      .toast-body
-        = message
+    - flash_types.each do |type|
+      - message = flash[type[:key]].presence
+      - if message.present?
+        .toast.align-items-center class="text-bg-#{type[:color]}" role="alert" aria-live="assertive" aria-atomic="true" data-controller="toast"
+          .d-flex
+            .toast-body
+              i class="#{type[:icon]}"
+              span = message
+            button.btn-close.me-2.m-auto type="button" data-bs-dismiss="toast" aria-label="Close"

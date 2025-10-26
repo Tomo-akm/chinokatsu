@@ -18,6 +18,8 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 gem "devise"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 gem "kaminari"
 gem "ransack"
 gem "slim-rails"
