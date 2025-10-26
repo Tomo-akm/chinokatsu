@@ -1,0 +1,161 @@
+// ============================================
+// フォーム コンポーネント
+// ============================================
+
+.form-group {
+  margin-bottom: $spacing-6;
+}
+
+.form-label {
+  display: inline-block;
+  margin-bottom: $spacing-2;
+  font-weight: $font-weight-medium;
+  color: $neutral-700;
+
+  &.required::after {
+    content: " *";
+    color: $error;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  @include input-base;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-help {
+  margin-top: $spacing-2;
+  font-size: $font-size-sm;
+  color: $neutral-500;
+}
+
+.form-error {
+  margin-top: $spacing-2;
+  font-size: $font-size-sm;
+  color: $error-dark;
+}
+
+.form-success {
+  margin-top: $spacing-2;
+  font-size: $font-size-sm;
+  color: $success-dark;
+}
+
+// Input States
+.form-input,
+.form-textarea,
+.form-select {
+  &.is-invalid {
+    @include input-error;
+  }
+
+  &.is-valid {
+    @include input-success;
+  }
+}
+
+// Input Group
+.input-group {
+  display: flex;
+  width: 100%;
+
+  .form-input,
+  .form-control {
+    flex: 1;
+    border-radius: $border-radius-md 0 0 $border-radius-md;
+  }
+
+  .btn {
+    border-radius: 0 $border-radius-md $border-radius-md 0;
+  }
+}
+
+// Checkbox & Radio
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-3;
+
+  &-input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: $spacing-3;
+    border: $border-width-2 solid $neutral-500;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+
+    &:checked {
+      background-color: $primary;
+      border-color: $primary;
+    }
+
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 3px rgba($primary, 0.2);
+    }
+  }
+
+  &-label {
+    margin: 0;
+    font-weight: $font-weight-normal;
+    color: $neutral-700;
+    cursor: pointer;
+  }
+}
+
+// Form Switch
+.form-switch {
+  &-input {
+    position: relative;
+    width: 3rem;
+    height: 1.5rem;
+    appearance: none;
+    background-color: $neutral-300;
+    border-radius: $border-radius-full;
+    cursor: pointer;
+    transition: background-color $transition-speed-base $transition-timing-ease-in-out;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 1.25rem;
+      height: 1.25rem;
+      background-color: white;
+      border-radius: $border-radius-full;
+      transition: transform $transition-speed-base $transition-timing-ease-in-out;
+    }
+
+    &:checked {
+      background-color: $primary;
+
+      &::before {
+        transform: translateX(1.5rem);
+      }
+    }
+
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 3px rgba($primary, 0.25);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &-label {
+    margin: 0;
+    font-weight: $font-weight-normal;
+    color: $neutral-700;
+  }
+}

@@ -1,0 +1,70 @@
+// ============================================
+// ヒートマップ コンポーネント
+// ============================================
+
+.heatmap-container {
+  margin-top: $spacing-6;
+}
+
+.heatmap-chart {
+  height: 200px;
+  width: 100%;
+}
+
+// GitHub-style Legend
+.heatmap-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: $spacing-4;
+  gap: $spacing-2;
+
+  &-label {
+    font-size: $font-size-sm;
+    color: $neutral-500;
+  }
+
+  &-colors {
+    display: flex;
+    gap: $spacing-1;
+  }
+
+  &-square {
+    width: 12px;
+    height: 12px;
+    border: $border-width-1 solid rgba(27, 31, 35, 0.06);
+    border-radius: $border-radius-sm;
+
+    &--level-0 {
+      background-color: #ebedf0;
+    }
+
+    &--level-1 {
+      background-color: #9be9a8;
+    }
+
+    &--level-2 {
+      background-color: #40c463;
+    }
+
+    &--level-3 {
+      background-color: #30a14e;
+    }
+
+    &--level-4 {
+      background-color: #216e39;
+    }
+  }
+}
+
+// Responsive adjustments
+@include respond-below(md) {
+  .heatmap-chart {
+    height: 180px;
+  }
+
+  .heatmap-legend-square {
+    width: 10px;
+    height: 10px;
+  }
+}

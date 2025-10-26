@@ -1,0 +1,96 @@
+// ============================================
+// ボタン コンポーネント
+// ============================================
+
+.btn {
+  @include button-base;
+
+  // Primary Button
+  &.btn-primary,
+  &.btn-gradient-primary {
+    @include button-variant($primary, $primary-dark);
+  }
+
+  &.btn-gradient-primary {
+    @include gradient-primary;
+    border: none;
+    color: white;
+
+    &:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+  }
+
+  // Secondary Button
+  &.btn-secondary {
+    @include button-variant($secondary, $secondary-dark);
+  }
+
+  // Success Button
+  &.btn-success {
+    @include button-variant($success, $success-dark);
+  }
+
+  // Warning Button
+  &.btn-warning {
+    @include button-variant($warning, $warning-dark);
+  }
+
+  // Error/Danger Button
+  &.btn-error,
+  &.btn-danger {
+    @include button-variant($error, $error-dark);
+  }
+
+  // Outline Variants
+  &.btn-outline-primary {
+    background-color: transparent;
+    border-color: $primary;
+    color: $primary;
+
+    &:hover:not(:disabled) {
+      background-color: $primary;
+      color: white;
+    }
+  }
+
+  &.btn-outline-secondary {
+    background-color: transparent;
+    border-color: $neutral-300;
+    color: $neutral-700;
+
+    &:hover:not(:disabled) {
+      background-color: $neutral-100;
+      border-color: $neutral-500;
+    }
+  }
+
+  &.btn-outline-error,
+  &.btn-outline-danger {
+    background-color: transparent;
+    border-color: $error;
+    color: $error;
+
+    &:hover:not(:disabled) {
+      background-color: $error;
+      color: white;
+    }
+  }
+
+  // Size Variants
+  &.btn-sm {
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+  }
+
+  &.btn-lg {
+    padding: $spacing-4 $spacing-8;
+    font-size: $font-size-lg;
+  }
+
+  // Block Button
+  &.btn-block {
+    display: block;
+    width: 100%;
+  }
+}

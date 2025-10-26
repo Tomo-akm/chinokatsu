@@ -1,0 +1,61 @@
+// ============================================
+// カード コンポーネント
+// ============================================
+
+.card {
+  @include card-base;
+
+  &-header {
+    padding: $spacing-4 $spacing-6;
+    background-color: $bg-primary;
+    border-bottom: $border-width-1 solid $neutral-300;
+    font-weight: $font-weight-semibold;
+  }
+
+  &-body {
+    padding: $spacing-6;
+  }
+
+  &-footer {
+    padding: $spacing-4 $spacing-6;
+    background-color: $bg-primary;
+    border-top: $border-width-1 solid $neutral-300;
+  }
+
+  // Card Variants
+  &.card-primary {
+    border: $border-width-2 solid $primary-light;
+
+    .card-header {
+      background: $primary-light;
+      border-bottom-color: $primary;
+      color: $primary-dark;
+    }
+  }
+
+  &.card-secondary {
+    border: $border-width-2 solid $secondary-light;
+
+    .card-header {
+      background: $secondary-light;
+      border-bottom-color: $secondary;
+      color: $secondary-dark;
+    }
+  }
+
+  // Interactive Card
+  &.card-hover {
+    @include card-hover;
+  }
+
+  &.card-interactive {
+    @include card-interactive;
+  }
+
+  // Card List (for multiple cards)
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+}
