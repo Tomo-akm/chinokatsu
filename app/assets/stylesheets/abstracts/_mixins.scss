@@ -266,3 +266,72 @@
     @include focus-ring;
   }
 }
+
+// --------------------------------------------------------------------------
+// Modern UI Components - モダンUIコンポーネント
+// --------------------------------------------------------------------------
+
+// グラデーションボタン
+@mixin gradient-button($color-start, $color-end, $shadow-color) {
+  background: linear-gradient(135deg, $color-start 0%, $color-end 100%);
+  border: none;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba($shadow-color, 0.3);
+  transition: all $transition-speed-base $transition-timing-ease-in-out;
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, $color-end 0%, $color-start 100%);
+    box-shadow: 0 6px 25px rgba($shadow-color, 0.4);
+    transform: translateY(-2px);
+    color: white !important;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// モダンバッジ
+@mixin modern-badge($bg-start, $bg-end, $text-color, $border-color) {
+  display: inline-flex;
+  align-items: center;
+  padding: $spacing-1 $spacing-3;
+  border-radius: $border-radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  background: linear-gradient(135deg, $bg-start 0%, $bg-end 100%);
+  color: $text-color;
+  border: 1px solid $border-color;
+  transition: all $transition-speed-fast ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba($border-color, 0.2);
+  }
+}
+
+// グラデーション区切り線
+@mixin separator-gradient($color, $margin-y: $spacing-2) {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, $color 50%, transparent 100%);
+  border: none;
+  margin: $margin-y 0;
+  opacity: 0.5;
+}
+
+// アイコン付きボックス
+@mixin icon-box($size: 36px, $bg-start, $bg-end, $icon-color) {
+  width: $size;
+  height: $size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $border-radius-base;
+  background: linear-gradient(135deg, $bg-start 0%, $bg-end 100%);
+  color: $icon-color;
+  flex-shrink: 0;
+
+  i {
+    font-size: $font-size-base;
+  }
+}

@@ -1,0 +1,178 @@
+// ============================================
+// Toast Component - トースト通知
+// ============================================
+// 右上固定のトースト通知コンポーネント
+// 背景は常に白で、左ボーダーで種類を識別
+// ============================================
+
+// アニメーション定義
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+    }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toast-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: $spacing-4;
+  z-index: 9999;
+  pointer-events: none; // コンテナ自体はクリックイベントを通過させる
+
+  .toast {
+    pointer-events: auto; // トースト自体はクリック可能にする
+    position: relative;
+    min-width: 320px;
+    max-width: 420px;
+    margin-bottom: $spacing-3; // 複数のtoast間のスペース
+    background-color: white !important;
+    color: $neutral-700;
+    border-radius: $border-radius-lg;
+    border: 1px solid rgba(16, 24, 40, 0.06);
+    box-shadow: $shadow-md;
+    overflow: visible; // btn-closeが見えるように
+
+    // 左側のアクセントボーダー
+    border-left: 6px solid transparent;
+
+    // Bootstrapの.showクラスが付いている時のみアニメーションを適用
+    &.show {
+      animation: slideInRight $transition-speed-slow $transition-timing-ease-out;
+    }
+
+    &.hiding {
+      animation: slideOutRight $transition-speed-slow $transition-timing-ease-out forwards;
+      pointer-events: none;
+    }
+
+    &.hidden {
+      display: none !important;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    // 本文部分
+    .toast-body {
+      padding: $spacing-5 $spacing-16 $spacing-5 $spacing-5; // 右側は閉じるボタンのスペース確保
+      font-size: $font-size-base;
+      font-weight: $font-weight-medium;
+      display: flex;
+      align-items: center;
+      gap: $spacing-3;
+      line-height: $line-height-normal;
+
+      i {
+        font-size: $font-size-xl;
+        flex-shrink: 0;
+      }
+
+      span {
+        flex: 1;
+      }
+    }
+
+    // 閉じるボタン
+    .btn-close {
+      position: absolute;
+      top: 50%;
+      right: $spacing-5;
+      transform: translateY(-50%);
+      margin: 0;
+      opacity: 0.5;
+      transition: opacity $transition-speed-base $transition-timing-ease-in-out;
+      z-index: 2;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    // ============================================
+    // カラーバリアント（左ボーダー + アイコン色）
+    // ============================================
+    &.text-bg-info {
+      border-left-color: $info-dark;
+      box-shadow: 0 6px 30px rgba($info-dark, 0.06);
+
+      .toast-body {
+        color: #0c4a6e;
+
+        i {
+          color: $info-dark;
+        }
+      }
+    }
+
+    &.text-bg-success {
+      border-left-color: $success-dark;
+      box-shadow: 0 6px 30px rgba($success-dark, 0.06);
+
+      .toast-body {
+        color: #14532d;
+
+        i {
+          color: $success-dark;
+        }
+      }
+    }
+
+    &.text-bg-warning {
+      border-left-color: $warning-dark;
+      box-shadow: 0 6px 30px rgba($warning-dark, 0.06);
+
+      .toast-body {
+        color: #78350f;
+
+        i {
+          color: $warning-dark;
+        }
+      }
+    }
+
+    &.text-bg-danger {
+      border-left-color: $error-dark;
+      box-shadow: 0 6px 30px rgba($error-dark, 0.06);
+
+      .toast-body {
+        color: #7f1d1d;
+
+        i {
+          color: $error-dark;
+        }
+      }
+    }
+  }
+
+  // ============================================
+  // レスポンシブ対応
+  // ============================================
+  @include respond-below(sm) {
+    .toast {
+      min-width: 280px;
+      max-width: calc(100vw - 2rem);
+    }
+  }
+}

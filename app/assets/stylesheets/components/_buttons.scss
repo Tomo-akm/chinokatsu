@@ -4,76 +4,123 @@
 
 .btn {
   @include button-base;
+  box-shadow: $shadow-sm;
+  font-weight: $font-weight-semibold;
 
-  // Primary Button
-  &.btn-primary,
-  &.btn-gradient-primary {
-    @include button-variant($primary, $primary-dark);
+  &:hover:not(:disabled) {
+    box-shadow: $shadow-md;
   }
 
-  &.btn-gradient-primary {
-    @include gradient-primary;
+  // Primary Button - モダンなグラデーション
+  &.btn-primary {
+    background: linear-gradient(135deg, $primary 0%, darken($primary, 8%) 100%);
     border: none;
     color: white;
+    box-shadow: 0 4px 12px rgba($primary, 0.3);
 
     &:hover:not(:disabled) {
-      opacity: 0.9;
+      background: linear-gradient(135deg, darken($primary, 3%) 0%, darken($primary, 11%) 100%);
+      box-shadow: 0 6px 20px rgba($primary, 0.4);
+      transform: translateY(-2px);
     }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba($primary, 0.3);
+    }
+  }
+
+  // Gradient Primary Button
+  &.btn-gradient-primary {
+    @include gradient-button($primary, $secondary, $primary);
   }
 
   // Secondary Button
   &.btn-secondary {
-    @include button-variant($secondary, $secondary-dark);
+    background: linear-gradient(135deg, $secondary 0%, lighten($secondary, 5%) 100%);
+    border: none;
+    color: $neutral-900;
+    box-shadow: 0 4px 12px rgba($secondary, 0.25);
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, darken($secondary, 5%) 0%, $secondary 100%);
+      box-shadow: 0 6px 20px rgba($secondary, 0.35);
+    }
   }
 
   // Success Button
   &.btn-success {
     @include button-variant($success, $success-dark);
+    box-shadow: 0 4px 12px rgba($success, 0.25);
   }
 
   // Warning Button
   &.btn-warning {
     @include button-variant($warning, $warning-dark);
+    box-shadow: 0 4px 12px rgba($warning, 0.25);
   }
 
   // Error/Danger Button
   &.btn-error,
   &.btn-danger {
     @include button-variant($error, $error-dark);
+    box-shadow: 0 4px 12px rgba($error, 0.25);
   }
 
-  // Outline Variants
+  // Outline Variants - モダンなアウトライン
   &.btn-outline-primary {
     background-color: transparent;
-    border-color: $primary;
+    border: 2px solid $primary;
     color: $primary;
+    box-shadow: none;
 
     &:hover:not(:disabled) {
-      background-color: $primary;
+      background: linear-gradient(135deg, $primary 0%, darken($primary, 8%) 100%);
+      border-color: $primary;
       color: white;
+      box-shadow: 0 4px 12px rgba($primary, 0.3);
     }
   }
 
   &.btn-outline-secondary {
     background-color: transparent;
-    border-color: $neutral-300;
-    color: $neutral-700;
+    border: 2px solid $secondary;
+    color: $secondary-dark;
+    box-shadow: none;
 
     &:hover:not(:disabled) {
-      background-color: $neutral-100;
-      border-color: $neutral-500;
+      background: linear-gradient(135deg, $secondary 0%, lighten($secondary, 5%) 100%);
+      border-color: $secondary;
+      color: $neutral-900;
+      box-shadow: 0 4px 12px rgba($secondary, 0.25);
     }
   }
 
   &.btn-outline-error,
   &.btn-outline-danger {
     background-color: transparent;
-    border-color: $error;
+    border: 2px solid $error;
     color: $error;
+    box-shadow: none;
 
     &:hover:not(:disabled) {
       background-color: $error;
       color: white;
+      box-shadow: 0 4px 12px rgba($error, 0.25);
+    }
+  }
+
+  // Light Button - 新しいバリエーション
+  &.btn-light {
+    background: white;
+    border: 2px solid rgba(white, 0.3);
+    color: $primary-dark;
+    backdrop-filter: blur(10px);
+
+    &:hover:not(:disabled) {
+      background: rgba(white, 0.95);
+      border-color: rgba(white, 0.5);
+      box-shadow: 0 4px 12px rgba(black, 0.1);
     }
   }
 
@@ -81,11 +128,13 @@
   &.btn-sm {
     padding: $spacing-2 $spacing-4;
     font-size: $font-size-sm;
+    border-radius: $border-radius-base;
   }
 
   &.btn-lg {
     padding: $spacing-4 $spacing-8;
     font-size: $font-size-lg;
+    border-radius: $border-radius-lg;
   }
 
   // Block Button

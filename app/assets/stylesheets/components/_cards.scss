@@ -4,16 +4,32 @@
 
 .card {
   @include card-base;
+  border: none;
 
   &-header {
     padding: $spacing-4 $spacing-6;
     background-color: $bg-primary;
     border-bottom: $border-width-1 solid $neutral-300;
     font-weight: $font-weight-semibold;
+
+    &.bg-primary {
+      background: linear-gradient(135deg, $primary 0%, darken($primary, 5%) 100%);
+      border-bottom: none;
+      color: white;
+      box-shadow: 0 4px 6px rgba($primary, 0.2);
+    }
+
+    &.bg-info {
+      background: linear-gradient(135deg, $secondary 0%, lighten($secondary, 5%) 100%);
+      border-bottom: none;
+      color: $neutral-900;
+      box-shadow: 0 4px 6px rgba($secondary, 0.15);
+    }
   }
 
   &-body {
     padding: $spacing-6;
+    background-color: white;
   }
 
   &-footer {
@@ -24,22 +40,24 @@
 
   // Card Variants
   &.card-primary {
-    border: $border-width-2 solid $primary-light;
+    border: none;
+    box-shadow: $shadow-md;
 
     .card-header {
-      background: $primary-light;
-      border-bottom-color: $primary;
-      color: $primary-dark;
+      background: linear-gradient(135deg, $primary 0%, darken($primary, 5%) 100%);
+      color: white;
+      border-bottom: none;
     }
   }
 
   &.card-secondary {
-    border: $border-width-2 solid $secondary-light;
+    border: none;
+    box-shadow: $shadow-md;
 
     .card-header {
-      background: $secondary-light;
-      border-bottom-color: $secondary;
-      color: $secondary-dark;
+      background: linear-gradient(135deg, $secondary 0%, lighten($secondary, 5%) 100%);
+      color: $neutral-900;
+      border-bottom: none;
     }
   }
 

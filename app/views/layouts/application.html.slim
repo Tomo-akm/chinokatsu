@@ -23,11 +23,11 @@ html
     = javascript_include_tag "chartkick", "data-turbo-track": "reload"
     = javascript_importmap_tags
 
-  body
+  body.d-flex.flex-column.min-vh-100
     = render "shared/header"
-    = render "shared/flash"
 
-    main.container.py-4
+    main.container.py-5.flex-grow-1
+      = render "shared/flash"
       = yield
 
     = render "shared/footer"

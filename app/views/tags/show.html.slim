@@ -1,10 +1,10 @@
 - content_for :title, "##{@tag.name}の投稿"
 
 .container
-  h1.mb-4
-    span.badge.bg-primary.fs-4 ##{@tag.name}
+  h1.mb-4.fade-in
+    span.badge.bg-primary.text-2xl ##{@tag.name}
     = " "
-    small.text-muted = "(#{@tag.posts_count}件の投稿)"
+    small.text-muted.text-base = "(#{@tag.posts_count}件の投稿)"
 
   = link_to "← 投稿一覧に戻る", posts_path, class: "btn btn-outline-secondary me-2 mb-3"
   = link_to "タグ一覧", tags_path, class: "btn btn-outline-secondary mb-3"
@@ -21,7 +21,7 @@
           i.fas.fa-search
           |  検索
 
-  .d-flex.flex-column.gap-3
+  .card-list
     - @posts.each do |post|
       = render post
 

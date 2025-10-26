@@ -132,6 +132,8 @@
 .bg-success { background-color: $success !important; }
 .bg-warning { background-color: $warning !important; }
 .bg-error { background-color: $error !important; }
+.bg-info { background-color: $info !important; }
+.bg-info-light { background-color: $info-light !important; }
 .bg-white { background-color: white !important; }
 .bg-gray-50 { background-color: $bg-primary !important; }
 .bg-gray-100 { background-color: $neutral-100 !important; }
@@ -284,4 +286,224 @@
 
 .slide-up {
   @include slide-up;
+}
+
+// ============================================
+// アイコン ユーティリティ
+// ============================================
+
+.icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: $border-radius-full;
+}
+
+// ============================================
+// モダンなプロフィール・リスト表示
+// ============================================
+
+.profile-info-item {
+  display: flex;
+  align-items: center;
+  padding: $spacing-2 $spacing-3;
+  border-radius: $border-radius-md;
+  transition: all $transition-speed-base ease;
+
+  &:hover {
+    background-color: rgba($secondary, 0.05);
+  }
+
+  .profile-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $border-radius-base;
+    background: linear-gradient(135deg, $secondary-light 0%, lighten($secondary, 10%) 100%);
+    color: $secondary-dark;
+    margin-right: $spacing-3;
+    flex-shrink: 0;
+
+    i {
+      font-size: $font-size-base;
+    }
+  }
+
+  .profile-label {
+    font-weight: $font-weight-medium;
+    color: $neutral-700;
+    width: 200px;
+    flex-shrink: 0;
+    font-size: $font-size-sm;
+  }
+
+  .profile-value {
+    flex: 1;
+    color: $neutral-900;
+    font-weight: $font-weight-normal;
+    font-size: $font-size-sm;
+  }
+}
+
+// ============================================
+// モダンなカード装飾
+// ============================================
+
+.card-decorative {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $primary 0%, $secondary 100%);
+  }
+}
+
+.card-header-decorative {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: $spacing-6;
+    right: $spacing-6;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, $secondary 50%, transparent 100%);
+    border-radius: $border-radius-full;
+  }
+}
+
+// ============================================
+// グラスモーフィズム（モダンな半透明効果）
+// ============================================
+
+.glass-effect {
+  background: rgba(white, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(white, 0.3);
+}
+
+.glass-primary {
+  background: rgba($primary, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba($primary, 0.2);
+}
+
+.glass-secondary {
+  background: rgba($secondary, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba($secondary, 0.2);
+}
+
+// ============================================
+// バッジ・タグ用のモダンスタイル
+// ============================================
+
+.badge-modern {
+  display: inline-flex;
+  align-items: center;
+  padding: $spacing-1 $spacing-3;
+  border-radius: $border-radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  background: linear-gradient(135deg, $secondary-light 0%, lighten($secondary, 8%) 100%);
+  color: $secondary-dark;
+  border: 1px solid rgba($secondary, 0.2);
+  transition: all $transition-speed-fast ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba($secondary, 0.2);
+  }
+}
+
+.badge-primary-modern {
+  background: linear-gradient(135deg, $primary-light 0%, lighten($primary, 5%) 100%);
+  color: $primary-dark;
+  border-color: rgba($primary, 0.2);
+}
+
+// ============================================
+// インプット・検索ボックス用モダンスタイル
+// ============================================
+
+.search-box-modern {
+  position: relative;
+
+  input {
+    padding-left: $spacing-10;
+    border: 2px solid $neutral-300;
+    border-radius: $border-radius-lg;
+    transition: all $transition-speed-base ease;
+
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 0 4px rgba($primary, 0.1);
+    }
+  }
+
+  .search-icon {
+    position: absolute;
+    left: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $neutral-500;
+    pointer-events: none;
+  }
+}
+
+// ============================================
+// セパレーター（区切り線）
+// ============================================
+
+.separator-gradient {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, $secondary 50%, transparent 100%);
+  border: none;
+  margin: $spacing-2 0;
+  opacity: 0.5;
+}
+
+.separator-dotted {
+  border: none;
+  border-top: 2px dotted $neutral-300;
+  margin: $spacing-3 0;
+}
+
+// ============================================
+// ホバーエフェクト
+// ============================================
+
+.hover-scale {
+  transition: transform $transition-speed-base ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.hover-glow-primary {
+  transition: all $transition-speed-base ease;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba($primary, 0.3);
+  }
+}
+
+.hover-glow-secondary {
+  transition: all $transition-speed-base ease;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba($secondary, 0.3);
+  }
 }

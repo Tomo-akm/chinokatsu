@@ -1,9 +1,9 @@
 - content_for :title, "タグ一覧"
 
 .container
-  h1.mb-4
-    i.fas.fa-tags
-    |  タグ一覧
+  h1.mb-4.font-bold.fade-in
+    i.fas.fa-tags.me-2
+    | タグ一覧
 
   = link_to "← 投稿一覧に戻る", posts_path, class: "btn btn-outline-secondary mb-3"
 
@@ -17,15 +17,15 @@
 
   .row
     - @tags.each do |tag|
-      .col-md-6.col-lg-4.mb-3
-        .card.h-100
+      .col-md-6.col-lg-4.mb-3.fade-in
+        .card.card-hover.h-100
           .card-body
             h5.card-title
-              = link_to tag_path(tag.name), class: "text-decoration-none" do
-                span.badge.bg-primary.fs-6 ##{tag.name}
+              = link_to tag_path(tag.id), class: "text-decoration-none" do
+                span.badge.bg-primary.text-lg ##{tag.name}
             p.card-text.text-muted
               | #{tag.posts_count}件の投稿
-            = link_to "投稿を見る", posts_path(tag: tag.name), class: "btn btn-sm btn-outline-primary"
+            = link_to "投稿を見る", tag_path(tag.id), class: "btn btn-sm btn-outline-primary"
 
   .d-flex.justify-content-center.mt-4
     = paginate @tags
