@@ -1,8 +1,8 @@
 .row.justify-content-center
   .col-12.col-md-8.col-lg-5
-    .card.shadow-sm
+    .card.card-primary.fade-in
       .card-body.p-4
-        h2.h4.mb-4.text-center Log in
+        h2.h4.mb-4.text-center.font-semibold Log in
 
         / Google OAuth ボタン（モダンデザイン）
         - if devise_mapping.omniauthable?
@@ -23,13 +23,13 @@
         = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
           = render "devise/shared/alert_message"
 
-          .mb-3
+          .form-group
             = f.label :email, class: "form-label"
-            = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input"
 
-          .mb-3
+          .form-group
             = f.label :password, class: "form-label"
-            = f.password_field :password, autocomplete: "current-password", class: "form-control"
+            = f.password_field :password, autocomplete: "current-password", class: "form-input"
 
           - if devise_mapping.rememberable?
             .form-check.mb-3
@@ -37,7 +37,7 @@
               = f.label :remember_me, class: "form-check-label"
 
           .d-grid.gap-2
-            = f.submit "Log in", class: "btn btn-primary"
+            = f.submit "Log in", class: "btn btn-gradient-primary"
 
         .mt-3
           = render "devise/shared/links"

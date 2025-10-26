@@ -16,8 +16,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_23_143025) do
 
   create_table "post_tags", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "post_id", null: false
-    t.integer "tag_id", null: false
+    t.bigint "post_id", null: false
+    t.bigint "tag_id", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id", "tag_id"], name: "index_post_tags_on_post_id_and_tag_id", unique: true
     t.index ["post_id"], name: "index_post_tags_on_post_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_23_143025) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 

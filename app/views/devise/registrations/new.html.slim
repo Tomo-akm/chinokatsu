@@ -1,8 +1,8 @@
 .row.justify-content-center
   .col-12.col-md-8.col-lg-5
-    .card.shadow-sm
+    .card.card-primary.fade-in
       .card-body.p-4
-        h2.h4.mb-4.text-center Sign up
+        h2.h4.mb-4.text-center.font-semibold Sign up
 
         / Google OAuth ボタン（モダンデザイン）
         - if devise_mapping.omniauthable?
@@ -24,27 +24,27 @@
           = render "devise/shared/alert_message"
           = render "devise/shared/error_messages", resource: resource
 
-          .mb-3
+          .form-group
             = f.label :name, class: "form-label"
-            = f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control"
+            = f.text_field :name, autofocus: true, autocomplete: "name", class: "form-input"
 
-          .mb-3
+          .form-group
             = f.label :email, class: "form-label"
-            = f.email_field :email, autocomplete: "email", class: "form-control"
+            = f.email_field :email, autocomplete: "email", class: "form-input"
 
-          .mb-3
+          .form-group
             = f.label :password, class: "form-label"
-            .form-text.mb-1
+            .form-help.mb-1
               - if @minimum_password_length
                 | (#{@minimum_password_length} characters minimum)
-            = f.password_field :password, autocomplete: "new-password", class: "form-control"
+            = f.password_field :password, autocomplete: "new-password", class: "form-input"
 
-          .mb-3
+          .form-group
             = f.label :password_confirmation, class: "form-label"
-            = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
+            = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input"
 
           .d-grid.gap-2
-            = f.submit "Sign up", class: "btn btn-primary"
+            = f.submit "Sign up", class: "btn btn-gradient-primary"
 
         .mt-3
           = render "devise/shared/links"

@@ -2,86 +2,95 @@
   .row.justify-content-center
     .col-lg-8
       / User Profile Information
-      .card.shadow-sm.bg-white.text-dark.mb-4
-        .card-body.p-4
-          .d-flex.justify-content-between.align-items-center.mb-2
-            h2.h4.mb-0
+      .card.card-primary.mb-4.fade-in.card-decorative
+        .card-header.bg-primary.text-white.p-4
+          .d-flex.justify-content-between.align-items-center
+            h2.h3.mb-0.font-bold.d-flex.align-items-center
               i.fas.fa-user-circle.me-2
-              | プロフィール
+              = @user.name
             - if user_signed_in? && @user == current_user
-              = link_to "プロフィール編集", edit_profile_path, class: "btn btn-sm btn-outline-primary"
-            - elsif !user_signed_in?
-              small.text-muted
-                | 編集するには
-                = link_to "ログイン", new_user_session_path, class: "text-decoration-none"
-                | が必要です
-          hr.my-3
-          .row
-            .col-sm-4
-              p.mb-0.text-muted 名前
-            .col-sm-8
-              p.text-dark.mb-2 = @user.name
-          .row
-            .col-sm-4
-              p.mb-0.text-muted 好きな言語
-            .col-sm-8
-              p.text-dark.mb-2 = @user.favorite_language.present? ? @user.favorite_language : "ー"
-          .row
-            .col-sm-4
-              p.mb-0.text-muted 希望・所属研究室
-            .col-sm-8
-              p.text-dark.mb-2 = @user.research_lab.present? ? @user.research_lab : "ー"
-          .row
-            .col-sm-4
-              p.mb-0.text-muted インターン・説明会参加回数
-            .col-sm-8
-              p.text-dark.mb-2 = @user.internship_count.present? ? "#{@user.internship_count}回" : "ー"
-          .row
-            .col-sm-4
-              p.mb-0.text-muted 一言
-            .col-sm-8
+              = link_to "プロフィール編集", edit_profile_path, class: "btn btn-sm btn-light"
+        .card-body.p-4
+          .profile-info-item
+            .profile-icon
+              i.fas.fa-id-card
+            .profile-label 名前
+            .profile-value = @user.name
+
+          .separator-gradient
+
+          .profile-info-item
+            .profile-icon
+              i.fas.fa-code
+            .profile-label 好きな言語
+            .profile-value = @user.favorite_language.present? ? @user.favorite_language : "ー"
+
+          .separator-gradient
+
+          .profile-info-item
+            .profile-icon
+              i.fas.fa-flask
+            .profile-label 希望・所属研究室
+            .profile-value = @user.research_lab.present? ? @user.research_lab : "ー"
+
+          .separator-gradient
+
+          .profile-info-item
+            .profile-icon
+              i.fas.fa-briefcase
+            .profile-label インターン・説明会参加回数
+            .profile-value = @user.internship_count.present? ? "#{@user.internship_count}回" : "ー"
+
+          .separator-gradient
+
+          .profile-info-item
+            .profile-icon
+              i.fas.fa-comment-dots
+            .profile-label 一言
+            .profile-value
               - if @user.personal_message.present?
-                .text-dark.mb-2 = simple_format(h(@user.personal_message), {}, wrapper_tag: "span")
+                = simple_format(h(@user.personal_message), {}, wrapper_tag: "span")
               - else
-                p.text-dark.mb-2 ー
-          .row
-            .col-sm-4
-              p.mb-0.text-muted 登録日
-            .col-sm-8
-              p.text-dark.mb-0 = @user.created_at.strftime("%Y年%m月%d日")
+                | ー
+
+          .separator-gradient
+
+          .profile-info-item
+            .profile-icon
+              i.fas.fa-calendar-check
+            .profile-label 登録日
+            .profile-value = @user.created_at.strftime("%Y年%m月%d日")
 
       / Activity Heatmap
-      .card.shadow-sm.bg-white.text-dark.mb-4
+      .card.card-primary.mb-4.fade-in
+        .card-header.bg-info.text-white.p-3
+          h3.h5.mb-0.font-semibold
+            i.far.fa-calendar-alt.me-2
+            | 投稿活動チャート
         .card-body.p-4
-          .d-flex.justify-content-between.align-items-center.mb-2
-            h3.h5.mb-0
-              i.far.fa-calendar-alt.me-2
-              | 投稿活動チャート
-          hr.my-3
-
           = render "heatmap", user: @user, date: @date, date_6_months_ago: @date_6_months_ago, active_user_counts: @active_user_counts_6_months
 
       / User's Posts
-      .card.shadow-sm.bg-white.text-dark
+      .card.card-primary.fade-in
         .card-body.p-4
           .d-flex.justify-content-between.align-items-center.mb-2
-            h3.h5.mb-0
+            h3.h5.mb-0.font-semibold
               i.fas.fa-book.me-2
               | commit log (#{@posts.count}件)
           hr.my-3
 
           - if @posts.any?
             - @posts.each do |post|
-              .border.rounded.p-3.mb-3.bg-light
+              .border.rounded.p-3.mb-3.bg-gray-100
                 .d-flex.justify-content-between.align-items-start.mb-2
-                  span.text-muted.small
+                  span.text-muted.text-sm
                     i.far.fa-clock.me-1
                     = post.created_at.strftime("%Y/%m/%d %H:%M")
                   .d-flex.gap-1
                     - if user_signed_in? && post.user == current_user
                       = link_to "rebase", edit_post_path(post), class: "btn btn-sm btn-outline-secondary"
                       = button_to "revert", post, method: :delete, class: "btn btn-outline-danger btn-sm d-inline", data: { confirm: "本当にrevertしますか？" }
-                p.mb-2.lh-base
+                p.mb-2.line-height-relaxed
                   = truncate(simple_format(h(post.content)), length: 200, escape: false)
 
                 / タグ表示
@@ -89,13 +98,13 @@
                   .mt-2
                     - post.tags.each do |tag|
                       = link_to tag_path(tag.name), class: "text-decoration-none" do
-                        span.badge.bg-light.text-dark.me-1 ##{tag.name}
+                        span.badge.bg-gray-100.text-dark.me-1 ##{tag.name}
           - else
             .text-center.py-5.text-muted
               i.far.fa-sticky-note.display-4.mb-3
               p.mb-0 まだ投稿がありません
-              p.small 最初の投稿をしてみましょう！
+              p.text-sm 最初の投稿をしてみましょう！
               - if user_signed_in?
-                = link_to "新しい投稿", new_post_path, class: "btn btn-primary mt-2"
+                = link_to "新しい投稿", new_post_path, class: "btn btn-gradient-primary mt-2"
               - else
-                = link_to "新しい投稿", new_user_session_path, class: "btn btn-primary mt-2", data: { confirm: "投稿するにはログインが必要です。ログインページに移動しますか？" }
+                = link_to "新しい投稿", new_user_session_path, class: "btn btn-gradient-primary mt-2", data: { confirm: "投稿するにはログインが必要です。ログインページに移動しますか？" }
