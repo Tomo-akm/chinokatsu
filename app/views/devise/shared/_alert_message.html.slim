@@ -1,0 +1,7 @@
+/ 統一されたアラートメッセージ（Flash Alert用）
+- if flash[:alert].present?
+  .alert.alert-danger.border-0.shadow-sm.mb-3 role="alert"
+    .d-flex.align-items-start
+      i.fas.fa-exclamation-circle.me-3.mt-1 style="font-size: 1.25rem;"
+      .flex-grow-1
+        = flash[:alert]

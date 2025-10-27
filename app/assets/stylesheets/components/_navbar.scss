@@ -1,0 +1,112 @@
+// ============================================
+// ナビゲーションバー コンポーネント
+// ============================================
+
+.navbar {
+  box-shadow: $shadow-md;
+  transition: all $transition-speed-base $transition-timing-ease-in-out;
+
+  .navbar-brand {
+    font-weight: $font-weight-bold;
+    letter-spacing: $letter-spacing-wide;
+    transition: transform $transition-speed-base $transition-timing-ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .navbar-nav {
+    gap: $spacing-6;
+  }
+
+  .nav-link {
+    position: relative;
+    font-weight: $font-weight-medium;
+    transition: all $transition-speed-base $transition-timing-ease-in-out;
+    padding: $spacing-2 $spacing-4;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: white;
+      transition: all $transition-speed-base $transition-timing-ease-in-out;
+      transform: translateX(-50%);
+    }
+
+    &:hover::after {
+      width: 80%;
+    }
+
+    i {
+      font-size: $font-size-base;
+    }
+  }
+
+  .dropdown-toggle {
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: white;
+      transition: all $transition-speed-base $transition-timing-ease-in-out;
+      transform: translateX(-50%);
+      border: none;
+      vertical-align: 0;
+      margin-left: 0;
+    }
+
+    &:hover::after {
+      width: 80%;
+    }
+  }
+
+  .dropdown-menu {
+    border: none;
+    box-shadow: $shadow-lg;
+    border-radius: $border-radius-md;
+    margin-top: $spacing-2;
+    overflow: hidden;
+
+    .dropdown-item {
+      padding: $spacing-3 $spacing-6;
+      transition: all $transition-speed-fast $transition-timing-ease-in-out;
+
+      &:hover {
+        @include gradient-primary;
+        color: white;
+        transform: translateX(5px);
+      }
+
+      &.text-danger:hover {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+    }
+
+    .dropdown-divider {
+      margin: 0;
+      opacity: 0.1;
+    }
+  }
+}
+
+// Navbar toggler animation
+.navbar-toggler {
+  border: none;
+  padding: $spacing-2;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  .navbar-toggler-icon {
+    transition: all $transition-speed-base $transition-timing-ease-in-out;
+  }
+}
