@@ -6,7 +6,11 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(10)
+    @posts = @q.result(distinct: true)
+            .includes(:likes, :user)  # N+1対策
+            .order(created_at: :desc)
+            .page(params[:page])
+            .per(10)
 
     # サイドバー用のタグ一覧（投稿数上位10個）
     @popular_tags = Tag.with_posts.popular.limit(10)
