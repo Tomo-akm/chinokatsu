@@ -13,9 +13,10 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = @post.likes.find_by(user: current_user)
+    @like = @post.likes.find(params[:id])
 
-    if @like&.destroy
+    if @like.user_id == current_user.id
+      @like.destroy
       render partial: "shared/like_button", locals: { post: @post }
     else
       render partial: "shared/like_button", locals: { post: @post }, status: :unprocessable_entity
