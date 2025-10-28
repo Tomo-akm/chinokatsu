@@ -38,8 +38,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def handle_success
-    flash[:notice] = SUCCESS_MESSAGE
     sign_in_and_redirect @user, event: :authentication
+    flash[:notice] = SUCCESS_MESSAGE
   end
 
   def handle_creation_failure
