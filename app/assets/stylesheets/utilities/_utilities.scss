@@ -317,20 +317,8 @@
   }
 
   .profile-icon {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: $border-radius-base;
-    background: linear-gradient(135deg, $secondary-light 0%, lighten($secondary, 10%) 100%);
-    color: $secondary-dark;
+    @include icon-box(36px, $secondary-light, lighten($secondary, 10%), $secondary-dark);
     margin-right: $spacing-3;
-    flex-shrink: 0;
-
-    i {
-      font-size: $font-size-base;
-    }
   }
 
   .profile-label {
@@ -410,21 +398,7 @@
 // ============================================
 
 .badge-modern {
-  display: inline-flex;
-  align-items: center;
-  padding: $spacing-1 $spacing-3;
-  border-radius: $border-radius-full;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-medium;
-  background: linear-gradient(135deg, $secondary-light 0%, lighten($secondary, 8%) 100%);
-  color: $secondary-dark;
-  border: 1px solid rgba($secondary, 0.2);
-  transition: all $transition-speed-fast ease;
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba($secondary, 0.2);
-  }
+  @include modern-badge($secondary-light, lighten($secondary, 8%), $secondary-dark, rgba($secondary, 0.2));
 }
 
 .badge-primary-modern {
@@ -467,11 +441,7 @@
 // ============================================
 
 .separator-gradient {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, $secondary 50%, transparent 100%);
-  border: none;
-  margin: $spacing-2 0;
-  opacity: 0.5;
+  @include separator-gradient($secondary, $spacing-2);
 }
 
 .separator-dotted {
