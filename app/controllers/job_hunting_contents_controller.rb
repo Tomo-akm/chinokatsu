@@ -10,12 +10,10 @@ class JobHuntingContentsController < ApplicationController
     @job_hunting_content = JobHuntingContent.new(job_hunting_content_params)
     @post = current_user.posts.build(contentable: @job_hunting_content)
 
-    # タグの設定
-    @post.tag_names = params.dig(:post, :tag_names) if params.dig(:post, :tag_names).present?
-
     if @post.save
       redirect_to posts_path, notice: "就活投稿を作成しました"
     else
+      flash.now[:alert] = "入力内容に誤りがあります。確認してください。"
       render :new, status: :unprocessable_entity
     end
   end

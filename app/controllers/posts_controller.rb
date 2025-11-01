@@ -47,6 +47,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_path, notice: "コミットをpushしました"
     else
+      flash.now[:alert] = "入力内容に誤りがあります。確認してください。"
       render :new, status: :unprocessable_entity
     end
   end
@@ -56,12 +57,11 @@ class PostsController < ApplicationController
     # contentable の型に応じてインスタンス変数を設定
     if @post.general?
       @general_content = @post.contentable
+      # 通常投稿のみタグを更新
+      @post.tag_names = params.dig(:post, :tag_names) if params.dig(:post, :tag_names).present?
     elsif @post.job_hunting?
       @job_hunting_content = @post.contentable
     end
-
-    # タグの更新
-    @post.tag_names = params.dig(:post, :tag_names) if params.dig(:post, :tag_names).present?
 
     if @post.contentable.update(contentable_params)
       redirect_to @post, notice: "コミットをmergeしました✨", status: :see_other
