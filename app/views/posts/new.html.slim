@@ -5,9 +5,13 @@
     .col-lg-6
       h1.text-center.display-5.font-bold.mb-4.text-primary.fade-in new commit
 
+      .mb-4.text-center
+        = link_to "通常投稿", new_post_path, class: "btn btn-outline-primary me-2"
+        = link_to "就活投稿", new_job_hunting_content_path, class: "btn btn-outline-success"
+
       .card.card-primary.fade-in
         .card-body.p-4
-          = render "form", post: @post
+          = render "form"
 
           hr.my-3
           .d-flex.justify-content-center.gap-2
