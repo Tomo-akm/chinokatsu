@@ -17,8 +17,8 @@ class JobHuntingContent < ApplicationRecord
   }, prefix: true
 
   validates :company_name, presence: true, length: { maximum: 100 }
-  validates :selection_stage, presence: true
-  validates :result, presence: true
+  validates :selection_stage, presence: true, inclusion: { in: selection_stages.keys }
+  validates :result, presence: true, inclusion: { in: results.keys }
   validates :content, presence: true, length: { maximum: 5000 }
 
   # Ransackの設定

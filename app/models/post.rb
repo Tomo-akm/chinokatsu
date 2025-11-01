@@ -8,6 +8,9 @@ class Post < ApplicationRecord
   # contentable へのdelegation
   delegate :content, to: :contentable
 
+  # contentableのバリデーションも実行
+  validates_associated :contentable
+
   # スコープ
   scope :general, -> { where(contentable_type: "GeneralContent") }
   scope :job_hunting, -> { where(contentable_type: "JobHuntingContent") }
