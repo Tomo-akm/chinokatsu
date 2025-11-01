@@ -3,8 +3,8 @@ class CreateJobHuntingContents < ActiveRecord::Migration[8.1]
     create_table :job_hunting_contents do |t|
       t.timestamps
       t.string :company_name, null: false
-      t.integer :selection_stage, null: false, default: 0
-      t.integer :result, null: false, default: 0
+      t.integer :selection_stage
+      t.integer :result
       t.text :content, null: false
     end
 

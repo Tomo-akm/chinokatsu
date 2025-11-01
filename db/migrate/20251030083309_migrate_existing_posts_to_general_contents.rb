@@ -1,21 +1,30 @@
 class MigrateExistingPostsToGeneralContents < ActiveRecord::Migration[8.1]
   def up
+    # content が null のデータを削除
+    execute "DELETE FROM posts WHERE content IS NULL OR content = '';"
+
     # 既存の Post データを GeneralContent に移行
     execute <<-SQL
       INSERT INTO general_contents (content, created_at, updated_at)
       SELECT content, created_at, updated_at
       FROM posts
-      WHERE content IS NOT NULL;
+      ORDER BY id;
     SQL
 
-    # posts テーブルの contentable 参照を更新
+    # posts テーブルの contentable 参照を更新（IDの順序で対応させる）
     execute <<-SQL
       UPDATE posts
       SET contentable_type = 'GeneralContent',
-          contentable_id = general_contents.id
-      FROM general_contents
-      WHERE posts.content = general_contents.content
-        AND posts.created_at = general_contents.created_at;
+          contentable_id = gc.id
+      FROM (
+        SELECT id, ROW_NUMBER() OVER (ORDER BY id) as rn
+        FROM general_contents
+      ) gc
+      JOIN (
+        SELECT id, ROW_NUMBER() OVER (ORDER BY id) as rn
+        FROM posts
+      ) p ON gc.rn = p.rn
+      WHERE posts.id = p.id;
     SQL
 
     # content カラムを削除
