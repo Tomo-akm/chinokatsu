@@ -37,8 +37,8 @@ div class=card_class id=dom_id(post)
     .card-text.mb-3.line-height-relaxed
       = simple_format(h(post.content))
 
-    / タグ表示
-    - if post.tags.any?
+    / タグ表示（通常投稿のみ）
+    - if post.general? && post.tags.any?
       .mb-3
         .d-flex.flex-wrap.gap-1
           - post.tags.each do |tag|

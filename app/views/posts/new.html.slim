@@ -1,13 +1,13 @@
-- content_for :title, "new commit"
+- content_for :title, "つぶやき commit"
 
 .container
   .row.justify-content-center
     .col-lg-6
-      h1.text-center.display-5.font-bold.mb-4.text-primary.fade-in new commit
+      h1.text-center.display-5.font-bold.mb-4.text-primary.fade-in つぶやき commit
 
       .mb-4.text-center
-        = link_to "通常投稿", new_post_path, class: "btn btn-outline-primary me-2"
-        = link_to "就活投稿", new_job_hunting_content_path, class: "btn btn-outline-success"
+        = link_to "つぶやき", new_post_path, class: "btn btn-primary me-2"
+        = link_to "就活記録", new_job_hunting_content_path, class: "btn btn-outline-primary"
 
       .card.card-primary.fade-in
         .card-body.p-4
